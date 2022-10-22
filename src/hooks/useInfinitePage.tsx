@@ -4,23 +4,23 @@ export class Context<T, B> {
   /** Flag to check already fetching */
   private blocked: boolean;
   /** Additional Information to run operator/contex. */
-  public readonly bundle?: B;
+  public readonly bundle: B;
   /** Post-process for comming data to append Pages. (Like middleware) */
   private readonly plugins: Plugin<T, B>[];
   /** External operation to work Hook. */
   private readonly operator: Operator<T, B>;
 
-  constructor(operator: Operator<T, B>, plugins: Plugin<T, B>[], bundle?: B) {
+  constructor(operator: Operator<T, B>, plugins: Plugin<T, B>[], bundle: B) {
     this.operator = operator;
     this.plugins = plugins;
     this.bundle = bundle;
     this.blocked = false;
   }
 
-  processWithPlugin(comming: T) {
+  processWithPlugin(pages: T[], comming: T) {
     let processed: T = comming;
     for (const plugin of this.plugins) {
-      if ((processed = plugin(this, processed)) == undefined) break;
+      if ((processed = plugin(this, pages, processed)) == undefined) break;
     }
     return processed;
   }
@@ -42,9 +42,10 @@ export class Context<T, B> {
     return undefined;
   }
 
-  async getNextPage(nextCursor: number | undefined) {
+  async getNextPage(pages: T[]) {
     return this.processWithPlugin(
-      await this.operator.fetchNextPage(nextCursor, this.bundle),
+      pages,
+      await this.operator.fetchNextPage(this.getNextCursor(pages), this.bundle),
     );
   }
 }
@@ -58,7 +59,7 @@ export interface Operator<T, B> {
    * @param lastPage
    * @param totalPages
    */
-  getNextCursor(pages: T[], bundle?: B): number | undefined;
+  getNextCursor(pages: T[], bundle: B): number | undefined;
   /**
    * Fetch Next Page.
    * @param nextCursor the cursor that was calculated by 'getNextCursor'.
@@ -67,9 +68,21 @@ export interface Operator<T, B> {
 }
 
 /** Is better readonly Context? */
-export type Plugin<T, B> = (context: Context<T, B>, commingData: T) => T;
+export type Plugin<T, B> = (
+  context: Context<T, B>,
+  pages: T[],
+  commingData: T,
+) => T;
 
 export type Status = 'loading' | 'done';
+
+export interface Handle<T, B> {
+  readonly pages: T[];
+  status: Status;
+  getCurrentCursor(): number;
+  isNext(): boolean;
+  fetchNext(): Promise<boolean>;
+}
 
 //#region Impl
 
@@ -92,7 +105,6 @@ function handleFromContext<T, B>(context: Context<T, B>) {
       return _status;
     },
     set status(value: Status) {
-      console.log(value);
       switch (value) {
         case 'done':
           context.unblock();
@@ -120,9 +132,7 @@ function handleFromContext<T, B>(context: Context<T, B>) {
       // set Status - loading
       self.status = 'loading';
 
-      const commingPage = await context.getNextPage(
-        context.getNextCursor(_pages),
-      );
+      const commingPage = await context.getNextPage(_pages);
 
       if (commingPage)
         _setPages((prev) => {
@@ -135,7 +145,7 @@ function handleFromContext<T, B>(context: Context<T, B>) {
     },
   };
 
-  return self;
+  return self as Handle<T, B>;
 }
 //#endregion
 
@@ -144,7 +154,7 @@ function handleFromContext<T, B>(context: Context<T, B>) {
  * @param operator External Operation to work hook. (ref. Operator Interface)
  * @param plugins Post-process for comming data to append Pages.
  * @param initialBundle An Object to initialize Bundle.
- * @returns
+ * @returns {Handle}
  */
 export default function useInfinitePage<T, B>(
   operator: Operator<T, B>,
@@ -154,7 +164,11 @@ export default function useInfinitePage<T, B>(
   const context = useRef<Context<T, B>>();
 
   if (!context.current) {
-    context.current = new Context<T, B>(operator, plugins, initialBundle);
+    context.current = new Context<T, B>(
+      operator,
+      plugins,
+      (initialBundle || {}) as B,
+    );
   }
 
   return handleFromContext<T, B>(context.current as Context<T, B>);
