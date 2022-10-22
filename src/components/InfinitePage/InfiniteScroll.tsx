@@ -1,18 +1,13 @@
-import React from 'react';
-import useInfinitePage, { Operator, Plugin } from '../../hooks/useInfinitePage';
+import React, { useEffect } from 'react';
+import useInfinitePage, { Operator } from '../../hooks/useInfinitePage';
 import debounce from './debounce';
 import { isBottomPosIn } from './ScrollUtility';
 import { useWindowEvent } from '../../hooks/useWindowEvent';
 import duplicatedPlugin from './duplicatedPlugin';
+import { Page, PageItem } from './pageTypes';
+import ListView from './ListView';
 
 //#region Interface & Impl
-interface Page {
-  total_count: number;
-  items: PageItem[];
-}
-
-interface PageItem {}
-
 interface Bundle {
   per: number;
 }
@@ -24,7 +19,7 @@ const operator: Operator<Page, Bundle> = {
 
     return limit > expect ? expect : undefined;
   },
-  async fetchNextPage(nextCursor = 1, bundle = { per: 20 }) {
+  async fetchNextPage(nextCursor = 1, bundle = { per: 25 }) {
     const response = await fetch(
       `https://api.github.com/search/repositories?q=topic:reactjs&per_page=${bundle.per}&page=${nextCursor}`,
     );
@@ -40,11 +35,13 @@ const operator: Operator<Page, Bundle> = {
 const duplicateDetecter = duplicatedPlugin<Page, PageItem>(
   {
     getItemsFromPage(page) {
-      return [];
+      return page.items;
     },
-    setItemsInPage(page, items) {},
+    setItemsInPage(page, items) {
+      page.items = items;
+    },
     isEqual(lhs, rhs) {
-      return false;
+      return lhs.id === rhs.id;
     },
   },
   (numOfDuplicated) => console.log(numOfDuplicated),
@@ -52,10 +49,8 @@ const duplicateDetecter = duplicatedPlugin<Page, PageItem>(
 //#endregion
 
 const InfiniteScroll = () => {
-  const { pages, getCurrentCursor, isNext, fetchNext } = useInfinitePage<
-    Page,
-    Bundle
-  >(operator, [duplicateDetecter]);
+  const { pages, status, getCurrentCursor, isNext, fetchNext } =
+    useInfinitePage<Page, Bundle>(operator, [duplicateDetecter], { per: 25 });
   // register Scroll Event to Window
   useWindowEvent(
     ['scroll'],
@@ -64,7 +59,16 @@ const InfiniteScroll = () => {
     }, 100),
   );
 
-  return <div></div>;
+  useEffect(() => {
+    // fetch data when first time.
+    fetchNext();
+  }, []);
+
+  if (status === 'loading') {
+    return <>Loading...</>;
+  } else {
+    return <ListView pages={pages} />;
+  }
 };
 
 export default InfiniteScroll;
