@@ -1,7 +1,18 @@
-import React from "react";
-
-const Main = () => (
-  <>
-  </>
-)
-export default Main;
+const Root = () => {
+  return (
+    <>
+      <div id="sidebar">
+        <h1>라우팅 세팅하기</h1>
+        <nav>
+          <ul>
+            <li>
+              <a href={`children`}>하위 페이지 들어가기</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div id="detail"></div>
+    </>
+  );
+};
+export default Root;
