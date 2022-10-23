@@ -8,3 +8,6 @@ export interface PageItem {
   name: String;
   full_name: String;
 }
+export interface Bundle {
+  per: number;
+}

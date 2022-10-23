@@ -82,6 +82,7 @@ export interface Handle<T, B> {
   getCurrentCursor(): number;
   isNext(): boolean;
   fetchNext(): Promise<boolean>;
+  clearPages(): void;
 }
 
 //#region Impl
@@ -90,7 +91,7 @@ function handleFromContext<T, B>(context: Context<T, B>) {
   const [_pages, _setPages] = useState<T[]>([]);
   const [_status, _setStatus] = useState<Status>('done');
 
-  const self = {
+  const self: Handle<T, B> = {
     /** State - Pages fetched so far.
      * 지금까지 가져온 페이지 배열
      */
@@ -123,6 +124,9 @@ function handleFromContext<T, B>(context: Context<T, B>) {
     isNext() {
       return context.getNextCursor(_pages) != undefined;
     },
+    clearPages() {
+      _setPages([]);
+    },
     /** Fetch Next Page. Make sure that must be next Cursor!
      * 반드시 isNext를 통해 Next Cursor의 유/무를 확인하고 호출하세요.
      */
@@ -136,8 +140,7 @@ function handleFromContext<T, B>(context: Context<T, B>) {
 
       if (commingPage)
         _setPages((prev) => {
-          prev.push(commingPage);
-          return prev;
+          return [...prev, commingPage];
         });
       // set Status - done
       self.status = 'done';
@@ -145,7 +148,7 @@ function handleFromContext<T, B>(context: Context<T, B>) {
     },
   };
 
-  return self as Handle<T, B>;
+  return self;
 }
 //#endregion
 

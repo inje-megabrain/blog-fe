@@ -1,4 +1,5 @@
 import { Plugin } from '../../hooks/useInfinitePage';
+import { Page, PageItem } from './pageTypes';
 
 interface Operator<P, I> {
   getItemsFromPage(page: P): I[];
@@ -44,4 +45,23 @@ export default function duplicatedPlugin<P, I>(
   };
 
   return plugin;
+}
+
+export function defaultDuplicateDetector(
+  callback: (numOfDuplicated: number) => void,
+) {
+  return duplicatedPlugin<Page, PageItem>(
+    {
+      getItemsFromPage(page) {
+        return page.items;
+      },
+      setItemsInPage(page, items) {
+        page.items = items;
+      },
+      isEqual(lhs, rhs) {
+        return lhs.id === rhs.id;
+      },
+    },
+    callback,
+  );
 }

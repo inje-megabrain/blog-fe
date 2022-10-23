@@ -3,14 +3,11 @@ import useInfinitePage, { Operator } from '../../hooks/useInfinitePage';
 import debounce from './debounce';
 import { isBottomPosIn } from './ScrollUtility';
 import { useWindowEvent } from '../../hooks/useWindowEvent';
-import duplicatedPlugin from './duplicatedPlugin';
-import { Page, PageItem } from './pageTypes';
+import { defaultDuplicateDetector } from './duplicatedPlugin';
+import { Page, Bundle } from './pageTypes';
 import ListView from './ListView';
 
 //#region Interface & Impl
-interface Bundle {
-  per: number;
-}
 
 const operator: Operator<Page, Bundle> = {
   getNextCursor(pages, bundle) {
@@ -32,43 +29,41 @@ const operator: Operator<Page, Bundle> = {
 //#endregion
 
 //#region Plugin
-const duplicateDetecter = duplicatedPlugin<Page, PageItem>(
-  {
-    getItemsFromPage(page) {
-      return page.items;
-    },
-    setItemsInPage(page, items) {
-      page.items = items;
-    },
-    isEqual(lhs, rhs) {
-      return lhs.id === rhs.id;
-    },
-  },
-  (numOfDuplicated) => console.log(numOfDuplicated),
+const duplicateDetector = defaultDuplicateDetector((numOfDuplicate) =>
+  console.log(numOfDuplicate),
 );
 //#endregion
 
 const InfiniteScroll = () => {
-  const { pages, status, getCurrentCursor, isNext, fetchNext } =
-    useInfinitePage<Page, Bundle>(operator, [duplicateDetecter], { per: 25 });
+  const { pages, status, getCurrentCursor, isNext, fetchNext, clearPages } =
+    useInfinitePage<Page, Bundle>(operator, [duplicateDetector], { per: 25 });
   // register Scroll Event to Window
+
   useWindowEvent(
     ['scroll'],
     debounce((_) => {
-      if (isBottomPosIn(50) && isNext()) fetchNext();
+      if (isBottomPosIn(50) && isNext()) {
+        fetchNext();
+      }
     }, 100),
   );
 
   useEffect(() => {
-    // fetch data when first time.
     fetchNext();
+    // For strict mode...
+    return () => clearPages();
   }, []);
 
-  if (status === 'loading') {
-    return <>Loading...</>;
-  } else {
-    return <ListView pages={pages} />;
-  }
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
+      <ListView pages={pages} status={status} />
+    </div>
+  );
 };
 
 export default InfiniteScroll;

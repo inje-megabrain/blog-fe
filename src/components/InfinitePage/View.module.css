@@ -1,0 +1,16 @@
+.item {
+  max-width: 650px;
+  font-size: 3em;
+}
+
+.footer {
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5em;
+}
+
+.view {
+  max-width: 750px;
+}
