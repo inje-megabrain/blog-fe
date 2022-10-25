@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react';
 import useInfinitePage, { Operator } from '../../hooks/useInfinitePage';
-import debounce from './debounce';
-import { isBottomPosIn } from './ScrollUtility';
+import debounce from '../../utils/debounce';
+import { isBottomPosIn } from '../../utils/scroll';
 import { useWindowEvent } from '../../hooks/useWindowEvent';
-import { defaultDuplicateDetector } from './duplicatedPlugin';
+import useToggleButtons from '../../hooks/useToggleButtons';
+import { defaultDetector } from '../../utils/plugins/duplicated';
 import { Page, Bundle } from './pageTypes';
+import { ViewList, ViewModule } from '@mui/icons-material';
 import ListView from './ListView';
+import ViewStyle from './View.module.css';
+import CardView from './CardView';
 
 //#region Interface & Impl
 
@@ -29,7 +33,7 @@ const operator: Operator<Page, Bundle> = {
 //#endregion
 
 //#region Plugin
-const duplicateDetector = defaultDuplicateDetector((numOfDuplicate) =>
+const duplicateDetector = defaultDetector((numOfDuplicate) =>
   console.log(numOfDuplicate),
 );
 //#endregion
@@ -37,6 +41,11 @@ const duplicateDetector = defaultDuplicateDetector((numOfDuplicate) =>
 const InfiniteScroll = () => {
   const { pages, status, getCurrentCursor, isNext, fetchNext, clearPages } =
     useInfinitePage<Page, Bundle>(operator, [duplicateDetector], { per: 25 });
+
+  const [ToggleGroup, selected] = useToggleButtons({
+    list: <ViewList />,
+    card: <ViewModule />,
+  });
   // register Scroll Event to Window
 
   useWindowEvent(
@@ -55,13 +64,24 @@ const InfiniteScroll = () => {
   }, []);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-      }}
-    >
-      <ListView pages={pages} status={status} />
+    <div className={ViewStyle.viewLayout}>
+      <div className={ViewStyle.viewContent}>
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'end',
+            marginRight: 30,
+          }}
+        >
+          <ToggleGroup />
+        </div>
+        {selected === 'list' ? (
+          <ListView pages={pages} status={status} />
+        ) : (
+          <CardView pages={pages} status={status} />
+        )}
+      </div>
     </div>
   );
 };

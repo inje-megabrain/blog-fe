@@ -1,14 +1,7 @@
 import { FC } from 'react';
 import { PageItem } from './pageTypes';
-import ItemStyle from './View.module.css';
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Paper,
-  Stack,
-  Typography,
-} from '@mui/material';
+
+import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 
 interface IListViewItem {
   item: PageItem;

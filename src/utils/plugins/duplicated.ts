@@ -1,7 +1,7 @@
 import { Plugin } from '../../hooks/useInfinitePage';
-import { Page, PageItem } from './pageTypes';
+import { Page, PageItem } from '../../components/InfinitePage/pageTypes';
 
-interface Operator<P, I> {
+export interface Operator<P, I> {
   getItemsFromPage(page: P): I[];
   setItemsInPage(page: P, items: I[]): void;
   isEqual(lhs: I, rhs: I): boolean;
@@ -12,7 +12,7 @@ interface Operator<P, I> {
  * @param callback 중복이 감지된 경우, 호출될 Callback
  * @returns
  */
-export default function duplicatedPlugin<P, I>(
+export default function detector<P, I>(
   operator: Operator<P, I>,
   callback: (numOfDuplicated: number) => void,
 ) {
@@ -47,10 +47,8 @@ export default function duplicatedPlugin<P, I>(
   return plugin;
 }
 
-export function defaultDuplicateDetector(
-  callback: (numOfDuplicated: number) => void,
-) {
-  return duplicatedPlugin<Page, PageItem>(
+export function defaultDetector(callback: (numOfDuplicated: number) => void) {
+  return detector<Page, PageItem>(
     {
       getItemsFromPage(page) {
         return page.items;

@@ -11,6 +11,28 @@
   font-size: 5em;
 }
 
-.view {
-  max-width: 750px;
+.viewLayout {
+  display: flex;
+  justify-content: center;
+}
+
+.viewContent {
+  width: 750px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.viewToggleGroup {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin-right: 30px;
+}
+
+.viewCard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 1em;
 }

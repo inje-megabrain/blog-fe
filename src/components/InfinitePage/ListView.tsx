@@ -12,7 +12,7 @@ interface IListView {
 
 const ListView: FC<IListView> = ({ pages, status }) => {
   return (
-    <div className={ViewStyle.view}>
+    <div>
       <Stack>
         {pages.map((page) =>
           page.items.map((item) => <ListViewItem key={item.id} item={item} />),
