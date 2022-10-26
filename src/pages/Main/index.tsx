@@ -8,6 +8,9 @@ const Root = () => {
             <li>
               <a href={`children`}>하위 페이지 들어가기</a>
             </li>
+            <li>
+              <a href={`editor`}>에디터 페이지 들어가기</a>
+            </li>
           </ul>
         </nav>
       </div>
