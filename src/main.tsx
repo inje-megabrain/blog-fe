@@ -1,10 +1,10 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './pages/Error/Error';
 import Root from './pages/Main';
 import TestChildrenPage from './pages/TestChildren';
 import TextEditor from './pages/TextEditor';
+import { RecoilRoot } from 'recoil';
 
 const router = createBrowserRouter([
   {
@@ -23,5 +23,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <RouterProvider router={router} />,
+  <RecoilRoot>
+    <RouterProvider router={router} />,
+  </RecoilRoot>,
 );
