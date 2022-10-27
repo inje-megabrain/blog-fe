@@ -15,8 +15,9 @@ type Props = {
   tag: string;
   html: string;
   index: number;
+  changeCursor: (block: Block, isDown: boolean) => void;
   updatePage: (block: Block) => void;
-  addBlock: (currentBlock: Block, prevTag: string) => void;
+  addBlock: (block: Block, prevTag: string) => void;
   deleteBlock: (blockId: string) => void;
 };
 
@@ -172,6 +173,27 @@ class EditableBlock extends React.Component<Props, States> {
   }) {
     if (e.key === CMD_KEY) {
       this.setState({ htmlBackup: this.state.html });
+    }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      this.props.changeCursor(
+        {
+          id: this.props.id,
+          html: this.state.html,
+          tag: this.state.tag,
+        },
+        false,
+      );
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      this.props.changeCursor(
+        {
+          id: this.props.id,
+          html: this.state.html,
+          tag: this.state.tag,
+        },
+        true,
+      );
     }
     if (e.key === 'Enter' && !e.shiftKey) {
       if (e.nativeEvent.isComposing) {

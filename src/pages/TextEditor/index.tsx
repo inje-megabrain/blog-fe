@@ -18,6 +18,7 @@ const TextEditor = () => {
 
   const pressPublishButton = () => {
     console.log(blocks);
+    location.href = '/';
   };
   return (
     <Container maxWidth="lg" sx={{ position: 'relative' }}>

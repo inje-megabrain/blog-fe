@@ -13,7 +13,9 @@ type Props = {
 const EditablePage = ({ blocks, setBlocks }: Props) => {
   const [currentBlockId, setCurrentBlockId] = useState<string>('');
   const prevBlocks = usePrevState(blocks);
-
+  useEffect(() => {
+    console.log(blocks);
+  }, [blocks]);
   useEffect(() => {
     if (prevBlocks && prevBlocks.length + 1 === blocks.length) {
       const nextBlockPosition =
@@ -37,6 +39,18 @@ const EditablePage = ({ blocks, setBlocks }: Props) => {
       }
     }
   }, [blocks, prevBlocks, currentBlockId]);
+
+  const changeCursor = (currentBlock: Block, isDown: boolean) => {
+    const blockPosition = blocks
+      .map((b: Block) => b.id)
+      .indexOf(currentBlock.id);
+    const changeBlock = document.querySelector(
+      `[data-position="${isDown ? blockPosition + 2 : blockPosition}"]`,
+    ) as HTMLElement | null;
+    if (changeBlock) {
+      changeBlock.focus();
+    }
+  };
 
   const updatePageHandler = (currentBlock: Block) => {
     const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
@@ -110,6 +124,7 @@ const EditablePage = ({ blocks, setBlocks }: Props) => {
                       tag={block.tag}
                       html={block.html}
                       index={index}
+                      changeCursor={changeCursor}
                       updatePage={updatePageHandler}
                       addBlock={addBlockHandler}
                       deleteBlock={deleteBlockHandler}
