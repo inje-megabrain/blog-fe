@@ -12,6 +12,7 @@ import ViewStyle from './View.module.css';
 import CardView from './CardView';
 
 //#region Interface & Impl
+// Issue #7
 
 const operator: Operator<Page, Bundle> = {
   getNextCursor(pages, bundle) {
