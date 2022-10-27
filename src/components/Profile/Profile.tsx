@@ -21,8 +21,8 @@ function Profile() {
             narinn-star's Profile
           </Typography>
           <img
-            src="src\assets\Cookie_Monster.png"
             className={ProfileStyle.imgStyle}
+            src="src\assets\Cookie_Monster.png"
             alt="PROFILE IMAGE"
           ></img>
           <Typography id="transition-modal-description" sx={{ mt: 2 }}>
