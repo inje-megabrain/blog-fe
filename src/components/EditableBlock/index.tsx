@@ -1,4 +1,5 @@
 import React, { KeyboardEvent } from 'react';
+import autobind from 'autobind-decorator';
 import { Draggable, DraggableProvided } from 'react-beautiful-dnd';
 import ContentEditable from 'react-contenteditable';
 import getCaretCoordinates from '../../utils/getCaretCoordinates';
@@ -43,40 +44,27 @@ type States = {
 class EditableBlock extends React.Component<Props, States> {
   contentEditable: React.RefObject<HTMLElement>;
   fileInput!: HTMLInputElement | null;
+  static readonly DEFAULT_STATE = {
+    htmlBackup: null,
+    html: '',
+    tag: 'p',
+    imageUrl: '',
+    isHovering: false,
+    selectMenuIsOpen: false,
+    selectMenuPosition: {
+      x: null,
+      y: null,
+    },
+    actionMenuOpen: false,
+    actionMenuPosition: {
+      x: null,
+      y: null,
+    },
+  };
   constructor(props: Props) {
     super(props);
-    this.onChangeHandler = this.onChangeHandler.bind(this);
-    this.onKeyDownHandler = this.onKeyDownHandler.bind(this);
-    this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
-    this.openSelectMenuHandler = this.openSelectMenuHandler.bind(this);
-    this.closeSelectMenuHandler = this.closeSelectMenuHandler.bind(this);
-    this.handleDragHandleClick = this.handleDragHandleClick.bind(this);
-    this.tagSelectionHandler = this.tagSelectionHandler.bind(this);
-    this.handleImageUpload = this.handleImageUpload.bind(this);
-    this.onHovering = this.onHovering.bind(this);
-    this.outHovering = this.outHovering.bind(this);
-    this.openActionMenu = this.openActionMenu.bind(this);
-    this.closeActionMenu = this.closeActionMenu.bind(this);
-    this.calculateActionMenuPosition =
-      this.calculateActionMenuPosition.bind(this);
     this.contentEditable = React.createRef();
-    this.state = {
-      htmlBackup: null,
-      html: '',
-      tag: 'p',
-      imageUrl: '',
-      isHovering: false,
-      selectMenuIsOpen: false,
-      selectMenuPosition: {
-        x: null,
-        y: null,
-      },
-      actionMenuOpen: false,
-      actionMenuPosition: {
-        x: null,
-        y: null,
-      },
-    };
+    this.state = Object.create(EditableBlock.DEFAULT_STATE);
   }
 
   componentDidMount() {
@@ -84,7 +72,10 @@ class EditableBlock extends React.Component<Props, States> {
   }
 
   //html 내용 또는 태그를 바꿀 때 변경하도록 제작 useEffect deps에 html과 tag가 담겨있는 상태
-  componentDidUpdate(_prevProps: any, prevState: { html: any; tag: any }) {
+  componentDidUpdate(
+    _prevProps: any,
+    prevState: { html: string; tag: string },
+  ) {
     const htmlChanged = prevState.html !== this.state.html;
     const tagChanged = prevState.tag !== this.state.tag;
     if (htmlChanged || tagChanged) {
@@ -98,6 +89,7 @@ class EditableBlock extends React.Component<Props, States> {
   }
 
   // MD 문법 사용 가능케 하도록 정규 표현식으로 tag 바꾸기
+  @autobind
   onChangeHandler(e: { target: { value: string } }) {
     if (/(^# )|(^#&nbsp;)/.test(e.target.value)) {
       this.setState(
@@ -157,14 +149,17 @@ class EditableBlock extends React.Component<Props, States> {
     }
   }
 
+  @autobind
   onHovering() {
     this.setState({ isHovering: true });
   }
 
+  @autobind
   outHovering() {
     this.setState({ isHovering: false });
   }
 
+  @autobind
   onKeyDownHandler(e: {
     key: string;
     shiftKey: KeyboardEvent['shiftKey'];
@@ -225,17 +220,21 @@ class EditableBlock extends React.Component<Props, States> {
       //TO-DO 비어있지 않는 block에서도 삭제 가능하게
     }
   }
+
+  @autobind
   onKeyUpHandler(e: { key: string }) {
     if (e.key === CMD_KEY) {
       this.openSelectMenuHandler();
     }
   }
 
+  @autobind
   handleDragHandleClick(e: { target: any }) {
     const dragHandle = e.target;
     this.openActionMenu(dragHandle, 'DRAG_HANDLE_CLICK');
   }
 
+  @autobind
   openActionMenu(parent: positionParent, trigger: string) {
     const { x, y } = this.calculateActionMenuPosition(parent, trigger);
     this.setState({
@@ -248,6 +247,7 @@ class EditableBlock extends React.Component<Props, States> {
     }, 100);
   }
 
+  @autobind
   closeActionMenu() {
     this.setState({
       actionMenuOpen: false,
@@ -256,6 +256,7 @@ class EditableBlock extends React.Component<Props, States> {
     document.removeEventListener('click', this.closeActionMenu, false);
   }
 
+  @autobind
   openSelectMenuHandler() {
     const { x, y } = getCaretCoordinates();
     this.setState({
@@ -274,6 +275,7 @@ class EditableBlock extends React.Component<Props, States> {
     document.removeEventListener('click', this.closeSelectMenuHandler);
   }
 
+  @autobind
   handleImageUpload() {
     if (!this.fileInput?.files) return;
     if (this.fileInput && this.fileInput?.files[0]) {
@@ -287,6 +289,7 @@ class EditableBlock extends React.Component<Props, States> {
 
   // 명령어 없이 html을 refresh 하고 ContentEditable 컴포넌트에 다시 focus() 한다.
   // 커서가 끝으로 설정된 상태에서 태그 선택 메뉴를 닫는다
+  @autobind
   tagSelectionHandler(tag: string) {
     if (tag === 'img') {
       this.setState({ ...this.state, tag: tag }, () => {
@@ -317,6 +320,7 @@ class EditableBlock extends React.Component<Props, States> {
     }
   }
 
+  @autobind
   calculateActionMenuPosition(parent: positionParent, initiator: string) {
     switch (initiator) {
       case 'DRAG_HANDLE_CLICK':

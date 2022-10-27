@@ -14,9 +14,6 @@ const EditablePage = ({ blocks, setBlocks }: Props) => {
   const [currentBlockId, setCurrentBlockId] = useState<string>('');
   const prevBlocks = usePrevState(blocks);
   useEffect(() => {
-    console.log(blocks);
-  }, [blocks]);
-  useEffect(() => {
     if (prevBlocks && prevBlocks.length + 1 === blocks.length) {
       const nextBlockPosition =
         blocks.map((b) => b.id).indexOf(currentBlockId) + 2;
@@ -38,7 +35,7 @@ const EditablePage = ({ blocks, setBlocks }: Props) => {
         setCaretToEnd(lastBlock);
       }
     }
-  }, [blocks, prevBlocks, currentBlockId]);
+  }, [blocks, currentBlockId]);
 
   const changeCursor = (currentBlock: Block, isDown: boolean) => {
     const blockPosition = blocks
