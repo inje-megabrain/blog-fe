@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Status } from '../../hooks/useInfinitePage';
-import { Page } from './pageTypes';
+import { Page } from '../../types/page';
 import ViewStyle from './View.module.css';
 import CardViewItem from './CardViewItem';
 

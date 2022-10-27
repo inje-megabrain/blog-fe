@@ -5,7 +5,7 @@ import { isBottomPosIn } from '../../utils/scroll';
 import { useWindowEvent } from '../../hooks/useWindowEvent';
 import useToggleButtons from '../../hooks/useToggleButtons';
 import { defaultDetector } from '../../utils/plugins/duplicated';
-import { Page, Bundle } from './pageTypes';
+import { Page, Bundle } from '../../types/page';
 import { ViewList, ViewModule } from '@mui/icons-material';
 import ListView from './ListView';
 import ViewStyle from './View.module.css';
@@ -33,22 +33,20 @@ const operator: Operator<Page, Bundle> = {
 };
 //#endregion
 
-//#region Plugin
-const duplicateDetector = defaultDetector((numOfDuplicate) =>
-  console.log(numOfDuplicate),
-);
-//#endregion
-
 const InfiniteScroll = () => {
   const { pages, status, getCurrentCursor, isNext, fetchNext, clearPages } =
-    useInfinitePage<Page, Bundle>(operator, [duplicateDetector], { per: 25 });
+    useInfinitePage<Page, Bundle>(
+      operator,
+      [defaultDetector((n) => console.log(n))],
+      { per: 25 },
+    );
 
   const [ToggleGroup, selected] = useToggleButtons({
     list: <ViewList />,
     card: <ViewModule />,
   });
-  // register Scroll Event to Window
 
+  // register Scroll Event to Window
   useWindowEvent(
     ['scroll'],
     debounce((_) => {
@@ -67,14 +65,7 @@ const InfiniteScroll = () => {
   return (
     <div className={ViewStyle.viewLayout}>
       <div className={ViewStyle.viewContent}>
-        <div
-          style={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'end',
-            marginRight: 30,
-          }}
-        >
+        <div className={ViewStyle.viewMenu}>
           <ToggleGroup />
         </div>
         {selected === 'list' ? (

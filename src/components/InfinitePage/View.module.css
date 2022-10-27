@@ -36,3 +36,10 @@
   gap: 8px;
   margin-top: 1em;
 }
+
+.viewMenu {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin-right: 30px;
+}

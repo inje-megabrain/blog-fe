@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { PageItem } from './pageTypes';
+import { Page, PageItem } from '../../types/page';
 
 import {
   Card,

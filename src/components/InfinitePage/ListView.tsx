@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Status } from '../../hooks/useInfinitePage';
 import ListViewItem from './ListViewItem';
-import { Page } from './pageTypes';
+import { Page } from '../../types/page';
 import ViewStyle from './View.module.css';
 import { Stack } from '@mui/material';
 
