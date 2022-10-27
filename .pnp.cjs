@@ -56,6 +56,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-contenteditable", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:3.3.6"],\
             ["react-dom", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:18.2.0"],\
             ["react-router-dom", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:6.4.2"],\
+            ["recoil", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:0.7.6"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"],\
             ["vite", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:3.1.8"],\
             ["vite-tsconfig-paths", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:3.5.2"]\
@@ -2258,6 +2259,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-contenteditable", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:3.3.6"],\
             ["react-dom", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:18.2.0"],\
             ["react-router-dom", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:6.4.2"],\
+            ["recoil", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:0.7.6"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"],\
             ["vite", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:3.1.8"],\
             ["vite-tsconfig-paths", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:3.5.2"]\
@@ -4111,6 +4113,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["hamt_plus", [\
+        ["npm:1.0.2", {\
+          "packageLocation": "./.yarn/cache/hamt_plus-npm-1.0.2-67a52ee1df-af26ea32db.zip/node_modules/hamt_plus/",\
+          "packageDependencies": [\
+            ["hamt_plus", "npm:1.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["has", [\
         ["npm:1.0.3", {\
           "packageLocation": "./.yarn/cache/has-npm-1.0.3-b7f00631c1-b9ad53d53b.zip/node_modules/has/",\
@@ -5843,6 +5854,37 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["inherits", "npm:2.0.4"],\
             ["string_decoder", "npm:1.3.0"],\
             ["util-deprecate", "npm:1.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["recoil", [\
+        ["npm:0.7.6", {\
+          "packageLocation": "./.yarn/cache/recoil-npm-0.7.6-6f8de04e3d-2b31dd29a7.zip/node_modules/recoil/",\
+          "packageDependencies": [\
+            ["recoil", "npm:0.7.6"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:0.7.6", {\
+          "packageLocation": "./.yarn/__virtual__/recoil-virtual-02465970b0/0/cache/recoil-npm-0.7.6-6f8de04e3d-2b31dd29a7.zip/node_modules/recoil/",\
+          "packageDependencies": [\
+            ["recoil", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:0.7.6"],\
+            ["@types/react", "npm:18.0.21"],\
+            ["@types/react-dom", "npm:18.0.6"],\
+            ["@types/react-native", null],\
+            ["hamt_plus", "npm:1.0.2"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:18.2.0"],\
+            ["react-native", null]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react-native",\
+            "@types/react",\
+            "react-dom",\
+            "react-native",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
