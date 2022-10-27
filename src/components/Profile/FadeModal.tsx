@@ -8,6 +8,7 @@ type IFadeModal = {
   handleClose: any;
 };
 
+/* FadeModal */
 const FadeModal: React.FC<IFadeModal> = ({ children, open, handleClose }) => {
   return (
     <Modal

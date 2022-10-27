@@ -18,7 +18,7 @@ function Profile() {
       <FadeModal open={open} handleClose={handleClose}>
         <Box className={ProfileStyle.boxStyle}>
           <Typography id="transition-modal-title" variant="h6" component="h2">
-            narinn-star's Profile
+            narinn-star's Profile Box
           </Typography>
           <img
             className={ProfileStyle.imgStyle}
