@@ -32,6 +32,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/styled", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:11.10.4"],\
             ["@mui/material", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:5.10.10"],\
             ["@types/react", "npm:18.0.21"],\
+            ["@types/react-beautiful-dnd", "npm:13.1.2"],\
             ["@types/react-dom", "npm:18.0.6"],\
             ["@typescript-eslint/eslint-plugin", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:5.40.1"],\
             ["@typescript-eslint/parser", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:5.40.1"],\
@@ -1316,6 +1317,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/react-beautiful-dnd", [\
+        ["npm:13.1.2", {\
+          "packageLocation": "./.yarn/cache/@types-react-beautiful-dnd-npm-13.1.2-deaeb386a7-28372854fc.zip/node_modules/@types/react-beautiful-dnd/",\
+          "packageDependencies": [\
+            ["@types/react-beautiful-dnd", "npm:13.1.2"],\
+            ["@types/react", "npm:18.0.21"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/react-dom", [\
         ["npm:18.0.6", {\
           "packageLocation": "./.yarn/cache/@types-react-dom-npm-18.0.6-55949dcf84-db571047af.zip/node_modules/@types/react-dom/",\
@@ -2042,6 +2053,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/styled", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:11.10.4"],\
             ["@mui/material", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:5.10.10"],\
             ["@types/react", "npm:18.0.21"],\
+            ["@types/react-beautiful-dnd", "npm:13.1.2"],\
             ["@types/react-dom", "npm:18.0.6"],\
             ["@typescript-eslint/eslint-plugin", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:5.40.1"],\
             ["@typescript-eslint/parser", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:5.40.1"],\
