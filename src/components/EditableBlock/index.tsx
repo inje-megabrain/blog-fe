@@ -16,6 +16,7 @@ type Props = {
   tag: string;
   html: string;
   index: number;
+  captured: boolean;
   changeCursor: (block: Block, isDown: boolean) => void;
   updatePage: (block: Block) => void;
   addBlock: (block: Block, prevTag: string) => void;
@@ -44,6 +45,11 @@ type States = {
 class EditableBlock extends React.Component<Props, States> {
   contentEditable: React.RefObject<HTMLElement>;
   fileInput!: HTMLInputElement | null;
+
+  static readonly styleOnCaptured = {
+    backgroundColor: '#b3d4fc',
+  };
+
   static readonly DEFAULT_STATE = {
     htmlBackup: null,
     html: '',
@@ -84,6 +90,7 @@ class EditableBlock extends React.Component<Props, States> {
         html: this.state.html,
         tag: this.state.tag,
         imageUrl: this.state.imageUrl,
+        captured: this.props.captured,
       });
     }
   }
@@ -176,6 +183,7 @@ class EditableBlock extends React.Component<Props, States> {
           id: this.props.id,
           html: this.state.html,
           tag: this.state.tag,
+          captured: this.props.captured,
         },
         false,
       );
@@ -186,6 +194,7 @@ class EditableBlock extends React.Component<Props, States> {
           id: this.props.id,
           html: this.state.html,
           tag: this.state.tag,
+          captured: this.props.captured,
         },
         true,
       );
@@ -202,6 +211,7 @@ class EditableBlock extends React.Component<Props, States> {
             html: this.state.html,
             tag: this.state.tag,
             imageUrl: this.state.imageUrl,
+            captured: this.props.captured,
           },
           this.state.tag,
         );
@@ -304,6 +314,7 @@ class EditableBlock extends React.Component<Props, States> {
           html: this.state.html,
           tag: this.state.tag,
           imageUrl: this.state.imageUrl,
+          captured: this.props.captured,
         },
         this.state.tag,
       );
@@ -350,83 +361,89 @@ class EditableBlock extends React.Component<Props, States> {
             close={this.closeSelectMenuHandler}
           />
         )}
-        <Draggable draggableId={this.props.id} index={this.props.position}>
-          {(provided: DraggableProvided) => (
-            <div
-              ref={provided.innerRef}
-              {...provided.draggableProps}
-              onMouseLeave={this.outHovering}
-              onMouseOver={this.onHovering}
-            >
-              {this.state.tag !== 'img' ? (
-                <ContentEditable
-                  style={{
-                    outline: 'none',
-                    width: '97%',
-                    display: 'inline-block',
-                    listStyleType: 'disc',
-                  }}
-                  className="Block"
-                  data-position={this.props.position}
-                  innerRef={this.contentEditable}
-                  html={this.state.html}
-                  tagName={this.state.tag}
-                  onChange={this.onChangeHandler}
-                  onKeyDown={this.onKeyDownHandler}
-                  onKeyUp={this.onKeyUpHandler}
-                />
-              ) : (
-                <div
-                  data-tag={this.state.tag}
-                  style={{ width: '97%', display: 'inline-block' }}
-                  //ref={this.contentEditable}
-                >
-                  <input
-                    id={`${this.props.id}_fileInput`}
-                    name={this.state.tag}
-                    type="file"
-                    onChange={this.handleImageUpload}
-                    ref={(ref) => (this.fileInput = ref)}
-                    hidden
-                  />
-                  {!this.state.imageUrl && (
-                    <label htmlFor={`${this.props.id}_fileInput`}>
-                      No Image Selected. Click To Select.
-                    </label>
-                  )}
-                  {this.state.imageUrl && (
-                    <img
-                      src={this.state.imageUrl}
-                      style={{
-                        height: 200,
-                        display: 'table',
-                        marginLeft: 'auto',
-                        marginRight: 'auto',
-                      }}
-                      alt="img"
-                      // alt={/[^\/]+(?=\.[^\/.]*$)/.exec(this.state.imageUrl)[0]}
-                    />
-                  )}
-                </div>
-              )}
-
-              <span
-                style={{
-                  width: '3%',
-                  display: 'inline-block',
-                }}
-                role="button"
-                tabIndex={0}
-                onClick={this.handleDragHandleClick}
-                {...provided.dragHandleProps}
+        <div
+          style={
+            this.props.captured ? EditableBlock.styleOnCaptured : undefined
+          }
+        >
+          <Draggable draggableId={this.props.id} index={this.props.position}>
+            {(provided: DraggableProvided) => (
+              <div
+                ref={provided.innerRef}
+                {...provided.draggableProps}
+                onMouseLeave={this.outHovering}
+                onMouseOver={this.onHovering}
               >
-                {this.state.isHovering && (
-                  <img src={DragHandleIcon} alt="Drag-Icon" />
+                {this.state.tag !== 'img' ? (
+                  <ContentEditable
+                    style={{
+                      outline: 'none',
+                      width: '97%',
+                      display: 'inline-block',
+                      listStyleType: 'disc',
+                    }}
+                    className="Block"
+                    data-position={this.props.position}
+                    innerRef={this.contentEditable}
+                    html={this.state.html}
+                    tagName={this.state.tag}
+                    onChange={this.onChangeHandler}
+                    onKeyDown={this.onKeyDownHandler}
+                    onKeyUp={this.onKeyUpHandler}
+                  />
+                ) : (
+                  <div
+                    data-tag={this.state.tag}
+                    style={{ width: '97%', display: 'inline-block' }}
+                    //ref={this.contentEditable}
+                  >
+                    <input
+                      id={`${this.props.id}_fileInput`}
+                      name={this.state.tag}
+                      type="file"
+                      onChange={this.handleImageUpload}
+                      ref={(ref) => (this.fileInput = ref)}
+                      hidden
+                    />
+                    {!this.state.imageUrl && (
+                      <label htmlFor={`${this.props.id}_fileInput`}>
+                        No Image Selected. Click To Select.
+                      </label>
+                    )}
+                    {this.state.imageUrl && (
+                      <img
+                        src={this.state.imageUrl}
+                        style={{
+                          height: 200,
+                          display: 'table',
+                          marginLeft: 'auto',
+                          marginRight: 'auto',
+                        }}
+                        alt="img"
+                        // alt={/[^\/]+(?=\.[^\/.]*$)/.exec(this.state.imageUrl)[0]}
+                      />
+                    )}
+                  </div>
                 )}
-              </span>
-            </div>
-          )}
-        </Draggable>
+
+                <span
+                  style={{
+                    width: '3%',
+                    display: 'inline-block',
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  onClick={this.handleDragHandleClick}
+                  {...provided.dragHandleProps}
+                >
+                  {this.state.isHovering && (
+                    <img src={DragHandleIcon} alt="Drag-Icon" />
+                  )}
+                </span>
+              </div>
+            )}
+          </Draggable>
+        </div>
       </>
     );
   }

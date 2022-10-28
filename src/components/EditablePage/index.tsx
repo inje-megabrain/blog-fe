@@ -70,6 +70,7 @@ const EditablePage = ({ blocks, setBlocks }: Props) => {
       id: uid(),
       html: '',
       tag: prevTag === 'li' ? 'li' : 'p', //To-Do 추후 함수로 로직 추가
+      captured: false,
     };
     updatedBlocks[index] = {
       ...updatedBlocks[index],
@@ -105,7 +106,7 @@ const EditablePage = ({ blocks, setBlocks }: Props) => {
   };
 
   return (
-    <EditableDragCapture>
+    <EditableDragCapture blocks={blocks} setBlocks={setBlocks}>
       <DragDropContext onDragEnd={onDragEndHandler}>
         <Droppable droppableId="droppable">
           {(provided) => (
@@ -116,6 +117,7 @@ const EditablePage = ({ blocks, setBlocks }: Props) => {
                     blocks.map((b) => b.id).indexOf(block.id) + 1;
                   return (
                     <EditableBlock
+                      captured={block.captured}
                       key={block.id}
                       position={position}
                       id={block.id}

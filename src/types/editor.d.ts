@@ -3,6 +3,7 @@ type Block = {
   tag: string;
   html: any;
   imageUrl?: string;
+  captured: boolean;
 };
 
 type positionParent = {
