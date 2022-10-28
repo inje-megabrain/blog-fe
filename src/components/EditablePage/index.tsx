@@ -4,6 +4,7 @@ import uid from '../../utils/uid';
 import EditableBlock from '../EditableBlock';
 import usePrevState from '../../hooks/usePrevState';
 import setCaretToEnd from '../../utils/setCaretToEnd';
+import EditableDragCapture from '../EditableDragCapture';
 
 type Props = {
   blocks: Block[];
@@ -104,7 +105,7 @@ const EditablePage = ({ blocks, setBlocks }: Props) => {
   };
 
   return (
-    <>
+    <EditableDragCapture>
       <DragDropContext onDragEnd={onDragEndHandler}>
         <Droppable droppableId="droppable">
           {(provided) => (
@@ -133,7 +134,7 @@ const EditablePage = ({ blocks, setBlocks }: Props) => {
           )}
         </Droppable>
       </DragDropContext>
-    </>
+    </EditableDragCapture>
   );
 };
 
