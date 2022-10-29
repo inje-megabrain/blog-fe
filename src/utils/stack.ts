@@ -5,8 +5,8 @@ export default class Stack<T> {
     this._values = [];
   }
 
-  has(value: T) {
-    return this._values.indexOf(value) !== -1;
+  indexOf(value: T) {
+    return this._values.indexOf(value);
   }
 
   popTo(value: T) {
@@ -43,7 +43,8 @@ export default class Stack<T> {
     return this._values.map(callback);
   }
 
-  clear() {
+  clear(callback?: (element: T) => void) {
+    if (callback) this.forEach(callback);
     this._values = [];
   }
 }

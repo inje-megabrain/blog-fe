@@ -8,6 +8,24 @@ export interface IEditableDragCapture {
   setBlocks: React.Dispatch<React.SetStateAction<Block[]>>;
 }
 
+function setCaptureState(
+  setter: React.Dispatch<React.SetStateAction<Block[]>>,
+  id: string,
+  value: boolean,
+) {
+  setter((prev) => {
+    const index = prev.findIndex((block) => block.id === id);
+    if (index === -1) return prev;
+    const selected = prev[index];
+
+    return [
+      ...prev.slice(0, index),
+      { ...selected, captured: value },
+      ...prev.slice(index + 1),
+    ];
+  });
+}
+
 const operator = (
   blocks: Block[],
   setBlocks: React.Dispatch<React.SetStateAction<Block[]>>,
@@ -23,34 +41,13 @@ const operator = (
       return element.dataset.rbdDraggableId != undefined;
     },
     callbackCaptured: function (element: HTMLElement): void {
-      const index = blocks.findIndex(
-        ({ id }) => id === this.getBlockId(element),
-      );
-      const capturedBlock = blocks[index];
-
-      setBlocks((prev) => {
-        const newBlocks = [...prev];
-        newBlocks.splice(index, 1, {
-          ...capturedBlock,
-          captured: true,
-        });
-        return newBlocks;
-      });
+      setCaptureState(setBlocks, this.getBlockId(element), true);
     },
     callbackCaptureSolved: function (element: HTMLElement): void {
-      const index = blocks.findIndex(
-        ({ id }) => id === this.getBlockId(element),
-      );
-      const solvedBlock = blocks[index];
-
-      setBlocks((prev) => {
-        const newBlocks = [...prev];
-        newBlocks.splice(index, 1, {
-          ...solvedBlock,
-          captured: false,
-        });
-        return newBlocks;
-      });
+      setCaptureState(setBlocks, this.getBlockId(element), false);
+    },
+    callbackContextMenu(e) {
+      //console.log('오른쪽 클릭 됨', e, blocks);
     },
   });
 
