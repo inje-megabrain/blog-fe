@@ -3,16 +3,36 @@ import selectParent from '../utils/selectParent';
 import Stack from '../utils/stack';
 
 export interface Operator {
+  /** Element에서 블럭 식별자 가져오기
+   *
+   */
   getBlockId(element: HTMLElement): string;
+  /** Element가 블럭인지 식별 */
   isBlock(element: HTMLElement): boolean;
+  /** 무시해야하는 Element(이 경우에는 context가 capture를 중단함. drag hover 때문에 있는 기능) */
   ignoreCase(element: HTMLElement): boolean;
-  callbackCaptured(blockId: HTMLElement): void;
+  /** Block이 Capture 되었을 때, 호출되는 callback
+   * @callback
+   */
+  callbackCaptured(element: HTMLElement): void;
+  /** Block이 Capture 해제되었을 때, 호출되는 callback
+   * @callback
+   */
   callbackCaptureSolved(element: HTMLElement): void;
+  /** 오른쪽 클릭시 호출되는 callback(선택된 block이 없는 경우, 호출 안됨)
+   * @callback
+   */
   callbackContextMenu(e: MouseEvent): void;
 }
 
 export class Context {
+  /**
+   * 현재 capture된 block element 기록
+   */
   public history: Stack<HTMLElement>;
+  /**
+   * 여러 flag 값들
+   */
   private flag: {
     proper: boolean;
     leftButtonPushed: boolean;
