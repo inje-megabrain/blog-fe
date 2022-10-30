@@ -5,6 +5,7 @@ import Root from './pages/Main';
 import TestChildrenPage from './pages/TestChildren';
 import TextEditor from './pages/TextEditor';
 import { RecoilRoot } from 'recoil';
+import Menu from './pages/Menu';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: 'editor',
     element: <TextEditor />,
+  },
+  {
+    path: 'menu',
+    element: <Menu />,
   },
 ]);
 
