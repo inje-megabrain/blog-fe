@@ -39,7 +39,7 @@ function Profile() {
             narinn-star's Profile Box
           </Typography>
           <Grid container>
-            {/* Profile Image */}
+            {/* Profile PNG */}
             <Grid item xs={4.5}>
               <img
                 className={ProfileStyle.img}
