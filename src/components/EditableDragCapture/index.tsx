@@ -47,7 +47,7 @@ const operator = (
       setCaptureState(setBlocks, this.getBlockId(element), false);
     },
     callbackContextMenu(e) {
-      //console.log('오른쪽 클릭 됨', e, blocks);
+      // console.log('오른쪽 클릭 됨', e, blocks);
     },
   });
 
