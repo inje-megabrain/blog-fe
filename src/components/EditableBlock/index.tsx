@@ -16,10 +16,11 @@ type Props = {
   tag: string;
   html: string;
   index: number;
+  onFocusBlock: (block: Block) => void;
   changeCursor: (block: Block, isDown: boolean) => void;
   updatePage: (block: Block) => void;
   addBlock: (block: Block, prevTag: string) => void;
-  deleteBlock: (blockId: string) => void;
+  deleteBlock: (block: Block) => void;
 };
 
 type States = {
@@ -72,13 +73,19 @@ class EditableBlock extends React.Component<Props, States> {
   }
 
   //html 내용 또는 태그를 바꿀 때 변경하도록 제작 useEffect deps에 html과 tag가 담겨있는 상태
-  componentDidUpdate(
-    _prevProps: any,
-    prevState: { html: string; tag: string },
-  ) {
+  componentDidUpdate(prevProps: any, prevState: { html: string; tag: string }) {
     const htmlChanged = prevState.html !== this.state.html;
     const tagChanged = prevState.tag !== this.state.tag;
+    const leftBarTagChanged = prevProps.tag !== this.props.tag;
+    if (leftBarTagChanged) {
+      this.setState({ tag: this.props.tag });
+      setCaretToEnd(this.contentEditable.current);
+    }
     if (htmlChanged || tagChanged) {
+      if (tagChanged && this.state.tag === prevProps.tag) {
+        setCaretToEnd(this.contentEditable.current);
+        return;
+      }
       this.props.updatePage({
         id: this.props.id,
         html: this.state.html,
@@ -215,7 +222,11 @@ class EditableBlock extends React.Component<Props, States> {
         });
         return;
       }
-      this.props.deleteBlock(this.props.id);
+      this.props.deleteBlock({
+        id: this.props.id,
+        html: this.state.html,
+        tag: this.state.tag,
+      });
     } else if (e.key === 'Backspace') {
       //TO-DO 비어있지 않는 block에서도 삭제 가능하게
     }
@@ -226,6 +237,15 @@ class EditableBlock extends React.Component<Props, States> {
     if (e.key === CMD_KEY) {
       this.openSelectMenuHandler();
     }
+  }
+
+  @autobind
+  onFocusHandler() {
+    this.props.onFocusBlock({
+      id: this.props.id,
+      html: this.state.html,
+      tag: this.state.tag,
+    });
   }
 
   @autobind
@@ -315,7 +335,6 @@ class EditableBlock extends React.Component<Props, States> {
       });
     }
     if (tag === 'li') {
-      console.log(this.state.html);
       this.setState({ html: this.state.html });
     }
   }
@@ -339,7 +358,12 @@ class EditableBlock extends React.Component<Props, States> {
           <EditableActionMenu
             position={this.state.actionMenuPosition}
             actions={{
-              deleteBlock: () => this.props.deleteBlock(this.props.id),
+              deleteBlock: () =>
+                this.props.deleteBlock({
+                  id: this.props.id,
+                  html: this.state.html,
+                  tag: this.state.tag,
+                }),
             }}
           />
         )}
@@ -374,12 +398,12 @@ class EditableBlock extends React.Component<Props, States> {
                   onChange={this.onChangeHandler}
                   onKeyDown={this.onKeyDownHandler}
                   onKeyUp={this.onKeyUpHandler}
+                  onFocus={this.onFocusHandler}
                 />
               ) : (
                 <div
                   data-tag={this.state.tag}
                   style={{ width: '97%', display: 'inline-block' }}
-                  //ref={this.contentEditable}
                 >
                   <input
                     id={`${this.props.id}_fileInput`}

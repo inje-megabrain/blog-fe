@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import { useRecoilState } from 'recoil';
 import uid from '../../utils/uid';
 import EditableBlock from '../EditableBlock';
 import usePrevState from '../../hooks/usePrevState';
 import setCaretToEnd from '../../utils/setCaretToEnd';
+import { tagState } from '../../states/editorState';
+import useDidMountEffect from '../../hooks/useDidMountEffect';
 
 type Props = {
   blocks: Block[];
@@ -11,12 +14,15 @@ type Props = {
 };
 
 const EditablePage = ({ blocks, setBlocks }: Props) => {
-  const [currentBlockId, setCurrentBlockId] = useState<string>('');
+  const [currentBlock, setCurrentBlock] = useState<Block>();
+  const [leftBarTag, setLeftBarTag] = useRecoilState(tagState);
   const prevBlocks = usePrevState(blocks);
+
   useEffect(() => {
+    setLeftBarTag('');
     if (prevBlocks && prevBlocks.length + 1 === blocks.length) {
       const nextBlockPosition =
-        blocks.map((b) => b.id).indexOf(currentBlockId) + 2;
+        blocks.map((b) => b.id).indexOf(currentBlock?.id) + 2;
       const nextBlock = document.querySelector(
         `[data-position="${nextBlockPosition}"]`,
       ) as HTMLElement | null;
@@ -27,7 +33,7 @@ const EditablePage = ({ blocks, setBlocks }: Props) => {
     if (prevBlocks && prevBlocks.length - 1 === blocks.length) {
       const lastBlockPosition = prevBlocks
         .map((b: Block) => b.id)
-        .indexOf(currentBlockId);
+        .indexOf(currentBlock?.id);
       const lastBlock = document.querySelector(
         `[data-position="${lastBlockPosition}"]`,
       ) as HTMLElement | null;
@@ -35,7 +41,17 @@ const EditablePage = ({ blocks, setBlocks }: Props) => {
         setCaretToEnd(lastBlock);
       }
     }
-  }, [blocks, currentBlockId]);
+  }, [blocks, currentBlock]);
+
+  useDidMountEffect(() => {
+    if (leftBarTag.length <= 0) return;
+    const newBlock: Block = { ...currentBlock!, tag: leftBarTag };
+    updatePageHandler(newBlock);
+  }, [leftBarTag]);
+
+  const onFocusBlock = (block: Block) => {
+    setCurrentBlock(block);
+  };
 
   const changeCursor = (currentBlock: Block, isDown: boolean) => {
     const blockPosition = blocks
@@ -62,7 +78,7 @@ const EditablePage = ({ blocks, setBlocks }: Props) => {
   };
 
   const addBlockHandler = (currentBlock: Block, prevTag: string) => {
-    setCurrentBlockId(currentBlock.id);
+    setCurrentBlock(currentBlock);
     const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
     const updatedBlocks: Block[] = [...blocks];
     const newBlock = {
@@ -79,13 +95,13 @@ const EditablePage = ({ blocks, setBlocks }: Props) => {
     setBlocks(updatedBlocks);
   };
 
-  const deleteBlockHandler = (blockId: string) => {
-    if (blockId == blocks[0].id) {
+  const deleteBlockHandler = (currentBlock: Block) => {
+    if (currentBlock.id == blocks[0].id) {
       return;
     }
     if (blocks.length > 1) {
-      setCurrentBlockId(blockId);
-      const index = blocks.map((b) => b.id).indexOf(blockId);
+      setCurrentBlock(currentBlock);
+      const index = blocks.map((b) => b.id).indexOf(currentBlock.id);
       const updatedBlocks: Block[] = [...blocks];
       updatedBlocks.splice(index, 1);
       setBlocks(updatedBlocks);
@@ -121,6 +137,7 @@ const EditablePage = ({ blocks, setBlocks }: Props) => {
                       tag={block.tag}
                       html={block.html}
                       index={index}
+                      onFocusBlock={onFocusBlock}
                       changeCursor={changeCursor}
                       updatePage={updatePageHandler}
                       addBlock={addBlockHandler}
