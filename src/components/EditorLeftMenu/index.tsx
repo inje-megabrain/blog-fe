@@ -1,7 +1,11 @@
 import { MenuItem, MenuList } from '@mui/material';
+import { useRecoilState } from 'recoil';
+import { tagState } from '../../states/editorState';
 import allowedTags from '../../utils/tagList';
 
 const EditorLeftMenuBar = () => {
+  const [leftBarTag, setLeftBarTag] = useRecoilState(tagState);
+
   return (
     <MenuList sx={{ mb: 20 }}>
       {allowedTags.map((i, key) => {
@@ -10,7 +14,8 @@ const EditorLeftMenuBar = () => {
             key={key}
             role="button"
             onClick={() => {
-              //onSelect(i.tag);
+              if (leftBarTag == i.tag) return;
+              setLeftBarTag(i.tag);
             }}
           >
             {i.label}
