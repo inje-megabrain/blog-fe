@@ -1,0 +1,45 @@
+.item {
+  max-width: 650px;
+  font-size: 3em;
+}
+
+.footer {
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5em;
+}
+
+.viewLayout {
+  display: flex;
+  justify-content: center;
+}
+
+.viewContent {
+  width: 750px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.viewToggleGroup {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin-right: 30px;
+}
+
+.viewCard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 1em;
+}
+
+.viewMenu {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin-right: 30px;
+}

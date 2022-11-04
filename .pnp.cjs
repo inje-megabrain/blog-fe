@@ -33,6 +33,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/plugin-proposal-decorators", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:7.19.6"],\
             ["@emotion/react", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:11.10.4"],\
             ["@emotion/styled", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:11.10.4"],\
+            ["@mui/icons-material", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:5.10.9"],\
             ["@mui/material", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:5.10.10"],\
             ["@types/react", "npm:18.0.21"],\
             ["@types/react-beautiful-dnd", "npm:13.1.2"],\
@@ -1075,6 +1076,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@mui-core-downloads-tracker-npm-5.10.10-f7533c9fd5-534c066edf.zip/node_modules/@mui/core-downloads-tracker/",\
           "packageDependencies": [\
             ["@mui/core-downloads-tracker", "npm:5.10.10"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@mui/icons-material", [\
+        ["npm:5.10.9", {\
+          "packageLocation": "./.yarn/cache/@mui-icons-material-npm-5.10.9-e2b7c889ba-8d2f66c094.zip/node_modules/@mui/icons-material/",\
+          "packageDependencies": [\
+            ["@mui/icons-material", "npm:5.10.9"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:5.10.9", {\
+          "packageLocation": "./.yarn/__virtual__/@mui-icons-material-virtual-2ea529f227/0/cache/@mui-icons-material-npm-5.10.9-e2b7c889ba-8d2f66c094.zip/node_modules/@mui/icons-material/",\
+          "packageDependencies": [\
+            ["@mui/icons-material", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:5.10.9"],\
+            ["@babel/runtime", "npm:7.19.4"],\
+            ["@mui/material", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:5.10.10"],\
+            ["@types/mui__material", null],\
+            ["@types/react", "npm:18.0.21"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@mui/material",\
+            "@types/mui__material",\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2258,6 +2286,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/plugin-proposal-decorators", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:7.19.6"],\
             ["@emotion/react", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:11.10.4"],\
             ["@emotion/styled", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:11.10.4"],\
+            ["@mui/icons-material", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:5.10.9"],\
             ["@mui/material", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:5.10.10"],\
             ["@types/react", "npm:18.0.21"],\
             ["@types/react-beautiful-dnd", "npm:13.1.2"],\

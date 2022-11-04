@@ -4,6 +4,7 @@ import ErrorPage from './pages/Error/Error';
 import Root from './pages/Main';
 import TestChildrenPage from './pages/TestChildren';
 import TextEditor from './pages/TextEditor';
+import InfiniteScroll from './pages/InfiniteScroll';
 import { RecoilRoot } from 'recoil';
 
 const router = createBrowserRouter([
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: 'editor',
     element: <TextEditor />,
+  },
+  {
+    path: 'infinite',
+    element: <InfiniteScroll />,
   },
 ]);
 
