@@ -6,6 +6,9 @@ import TestChildrenPage from './pages/TestChildren';
 import TextEditor from './pages/TextEditor';
 import InfiniteScroll from './pages/InfiniteScroll';
 import { RecoilRoot } from 'recoil';
+import Findpassword from './pages/Member/Findpassword';
+import Signin from './pages/Member/Signin';
+import Signup from './pages/Member/Signup';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +27,18 @@ const router = createBrowserRouter([
   {
     path: 'infinite',
     element: <InfiniteScroll />,
+  },
+  {
+    path: 'signin',
+    element: <Signin />,
+  },
+  {
+    path: 'signup',
+    element: <Signup />,
+  },
+  {
+    path: 'findpw',
+    element: <Findpassword />,
   },
 ]);
 

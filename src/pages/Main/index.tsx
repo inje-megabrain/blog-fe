@@ -14,6 +14,15 @@ const Root = () => {
             <li>
               <a href={`infinite`}>무한 스크롤 들어가기</a>
             </li>
+            <li>
+              <a href={`signin`}>로그인</a>
+            </li>
+            <li>
+              <a href={`signup`}>회원가입</a>
+            </li>
+            <li>
+              <a href={`findpw`}>비밀번호찾기</a>
+            </li>
           </ul>
         </nav>
       </div>
