@@ -12,6 +12,7 @@ type Props = {
 
 const buttonStyled = css`
   border-radius: 5px;
+  padding: 8px 16px;
   &:hover {
     background-color: #d9e8fa;
   }
@@ -28,7 +29,9 @@ const centerStyled = css`
 `;
 
 const spanStyled = css`
+  padding-top: 3px;
   font-size: 14px;
+  white-space: nowrap;
 `;
 
 const Notice: FC<Props> = ({ handleClick, name, SvgIcon, to }) => {

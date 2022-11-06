@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import { css } from '@emotion/react';
-import menuAppItems from '../../utils/menuAppItems';
+import menuAppItems from '../../../utils/menuAppItems';
 import MenuAppItem from '../MenuAppItem';
 
 type Props = {

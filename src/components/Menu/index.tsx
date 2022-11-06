@@ -1,15 +1,18 @@
-import AppsIcon from '@mui/icons-material/Apps';
+import { Apps, PersonSharp } from '@mui/icons-material';
 import { Badge, ClickAwayListener, IconButton, Popper } from '@mui/material';
 import React, { useState } from 'react';
-import MenuContainer from '../MenuContainer';
+import { Direction } from '../../types/menu';
+import MenuContainer from './MenuContainer';
+import MenuSpeechBubble from './MenuSpeechBubble';
 
 type Props = {
   size?: number;
   id: string;
+  direction: Direction;
 };
 
-const Menu = ({ size = 33, id }: Props) => {
-  const [notice, setNotice] = useState(0);
+const Menu = ({ size = 33, id, direction }: Props) => {
+  const [notice, setNotice] = useState(1);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) =>
@@ -26,12 +29,12 @@ const Menu = ({ size = 33, id }: Props) => {
           onClick={handleClick}
         >
           <Badge badgeContent={notice} color="primary">
-            <AppsIcon sx={{ fontSize: size }} />
+            <PersonSharp sx={{ fontSize: size }} />
           </Badge>
         </IconButton>
-        <Popper id={id} open={anchorEl !== null} anchorEl={anchorEl}>
+        <MenuSpeechBubble direction={direction} id={id} anchorEl={anchorEl}>
           <MenuContainer setNotice={setNotice} />
-        </Popper>
+        </MenuSpeechBubble>
       </div>
     </ClickAwayListener>
   );

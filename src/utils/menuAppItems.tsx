@@ -1,7 +1,7 @@
 import { Notifications, BorderColor, Home } from '@mui/icons-material';
 import { SvgIconTypeMap } from '@mui/material';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
-import NoticeContent from '../components/MenuAppContent/NoticeContent';
+import NoticeContent from '../components/Menu/MenuAppContent/NoticeContent';
 
 const menuAppItemList: {
   name: string;
