@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import useInfinitePage, { Operator } from '../../hooks/useInfinitePage';
 import debounce from '../../utils/debounce';
 import { isBottomPosIn } from '../../utils/scroll';
@@ -34,6 +34,7 @@ const operator: Operator<Page, Bundle> = {
 //#endregion
 
 const InfiniteScroll = () => {
+  const containerRef = useRef(null);
   const { pages, status, getCurrentCursor, isNext, fetchNext, clearPages } =
     useInfinitePage<Page, Bundle>(
       operator,
@@ -50,7 +51,7 @@ const InfiniteScroll = () => {
   useWindowEvent(
     ['scroll'],
     debounce((_) => {
-      if (isBottomPosIn(50) && isNext()) {
+      if (isBottomPosIn(50, containerRef.current) && isNext()) {
         fetchNext();
       }
     }, 100),
@@ -63,7 +64,7 @@ const InfiniteScroll = () => {
   }, []);
 
   return (
-    <div className={ViewStyle.viewLayout}>
+    <div className={ViewStyle.viewLayout} ref={containerRef}>
       <div className={ViewStyle.viewContent}>
         <div className={ViewStyle.viewMenu}>
           <ToggleGroup />
