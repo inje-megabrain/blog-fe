@@ -11,26 +11,28 @@ import {
   Chip,
 } from '@mui/material';
 import { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { selectTagState } from '../../states/tagSelectorState';
 import { tagCategory } from './backdata';
 
 type Props = {
   open: boolean;
   handleOpen: () => void;
+  selectTagData: string[];
+  setSelectTagData: React.Dispatch<React.SetStateAction<string[] | undefined>>;
 };
 
-const TagSelectorModal = ({ open, handleOpen }: Props) => {
+const TagSelectorModal = ({
+  open,
+  handleOpen,
+  selectTagData,
+  setSelectTagData,
+}: Props) => {
   const [category, setCategory] = useState('');
   const [categoryData, setCategoryData] = useState<string[]>([]);
-  const [selectTagData, setSelectTagData] =
-    useRecoilState<string[]>(selectTagState);
-
   const pressTagButton = (item: string) => {
-    if (selectTagData.indexOf(item) >= 0) {
-      setSelectTagData(selectTagData.filter((e) => e !== item));
+    if (selectTagData?.indexOf(item) >= 0) {
+      setSelectTagData(selectTagData?.filter((e) => e !== item));
     } else {
-      setSelectTagData(selectTagData.concat(item));
+      setSelectTagData(selectTagData?.concat(item));
     }
   };
 
@@ -89,7 +91,7 @@ const TagSelectorModal = ({ open, handleOpen }: Props) => {
                     size="medium"
                     color="primary"
                     variant={
-                      selectTagData.indexOf(item) >= 0 ? 'filled' : 'outlined'
+                      selectTagData?.indexOf(item) >= 0 ? 'filled' : 'outlined'
                     }
                     sx={{ marginLeft: '0.4em', marginBottom: '0.4em' }}
                     onClick={() => pressTagButton(item)}
@@ -111,7 +113,7 @@ const TagSelectorModal = ({ open, handleOpen }: Props) => {
             )}
           </Grid>
           <Grid xs={12} item>
-            {selectTagData.length > 0 &&
+            {selectTagData?.length > 0 &&
               selectTagData.map((item, index) => {
                 return (
                   <Chip
