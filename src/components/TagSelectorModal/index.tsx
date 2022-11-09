@@ -7,7 +7,6 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Button,
   Chip,
 } from '@mui/material';
 import { useState } from 'react';
@@ -26,8 +25,10 @@ const TagSelectorModal = ({
   selectTagData,
   setSelectTagData,
 }: Props) => {
-  const [category, setCategory] = useState('');
-  const [categoryData, setCategoryData] = useState<string[]>([]);
+  const [categoryData, setCategoryData] = useState<categoryData>({
+    categoryTitle: '',
+    subCategory: [],
+  });
   const pressTagButton = (item: string) => {
     if (selectTagData?.indexOf(item) >= 0) {
       setSelectTagData(selectTagData?.filter((e) => e !== item));
@@ -67,10 +68,12 @@ const TagSelectorModal = ({
                 return (
                   <ListItem disablePadding key={index}>
                     <ListItemButton
-                      selected={item.title === category}
+                      selected={item.title === categoryData.categoryTitle}
                       onClick={() => {
-                        setCategory(item.title);
-                        setCategoryData(item.data);
+                        setCategoryData({
+                          categoryTitle: item.title,
+                          subCategory: item.data,
+                        });
                       }}
                     >
                       <ListItemText primary={item.title} />
@@ -82,8 +85,8 @@ const TagSelectorModal = ({
           </Grid>
 
           <Grid xs={7} item sx={{ width: '12em' }}>
-            {categoryData.length > 0 ? (
-              categoryData.map((item, index) => {
+            {categoryData.subCategory.length > 0 ? (
+              categoryData.subCategory.map((item, index) => {
                 return (
                   <Chip
                     key={index}
