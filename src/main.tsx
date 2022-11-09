@@ -1,10 +1,12 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
 import Profile from './components/Profile/Profile';
 import ErrorPage from './pages/Error/Error';
-import Root from './pages/Main/Main';
-import TestChildrenPage from './pages/TestChildren/TestChildren';
+import Root from './pages/Main';
+import TestChildrenPage from './pages/TestChildren';
+import TextEditor from './pages/TextEditor';
+import InfiniteScroll from './pages/InfiniteScroll';
+import { RecoilRoot } from 'recoil';
 
 const router = createBrowserRouter([
   {
@@ -17,13 +19,21 @@ const router = createBrowserRouter([
     element: <TestChildrenPage />,
   },
   {
+    path: 'editor',
+    element: <TextEditor />,
+  },
+  {
+    path: 'infinite',
+    element: <InfiniteScroll />,
+  },
+  {
     path: 'profile',
     element: <Profile />,
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+  <RecoilRoot>
+    <RouterProvider router={router} />,
+  </RecoilRoot>,
 );
