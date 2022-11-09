@@ -1,16 +1,13 @@
 /*Profile Styles*/
 .profileStyle {
   position: sticky;
-  top: 50%;
-  left: 50%;
-  display: flex;
-  justify-content: center;
 }
 
 .titleStyle {
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding-bottom: 10px;
 }
 
 .introduce {

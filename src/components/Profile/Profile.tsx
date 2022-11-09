@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Box, Button, Typography, Grid } from '@mui/material';
 import ProfileStyle from './Profile.module.css';
+import SidebarStyle from './Sidebar.module.css';
 import FadeModal from './FadeModal';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import CreateIcon from '@mui/icons-material/Create';
+import LinkIcon from '@mui/icons-material/Link';
 import { Link } from 'react-router-dom';
 // import { IconButton } from "@mui/material";
 // import GitHubIcon from "@mui/icons-material/GitHub";
@@ -23,9 +25,46 @@ function Profile() {
 
   return (
     <div className={ProfileStyle.profileStyle}>
-      <Button className={ProfileStyle.btnStyle} onClick={handleOpen}>
-        Open Profile
-      </Button>
+      <div className={SidebarStyle.sidebarStyle}>
+        <Box className={SidebarStyle.boxStyle}>
+          <Grid container spacing={2}>
+            <Grid
+              item
+              xs={12}
+              sx={{ display: 'flex', justifyContent: 'center' }}
+            >
+              <h3>narinn-star</h3>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sx={{ display: 'flex', justifyContent: 'center' }}
+            >
+              <img
+                className={SidebarStyle.img}
+                // className={SidebarStyle.imgStyle}
+                // src="src\assets\Cookie_Monster.png"
+                // alt="PROFILE IMAGE"
+              />
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sx={{ display: 'flex', justifyContent: 'flex-end' }}
+            >
+              <Button
+                sx={{ fontSize: '10px', height: '5px' }}
+                onClick={handleOpen}
+              >
+                Details
+              </Button>
+            </Grid>
+            <Grid item xs={1.5} />
+            <Grid item xs={10}></Grid>
+            <Grid item xs={12} sx={{ mt: 2, ml: 1 }}></Grid>
+          </Grid>
+        </Box>
+      </div>
       {/* Modal */}
       <FadeModal open={open} handleClose={handleClose}>
         <Box className={ProfileStyle.boxStyle}>
@@ -51,9 +90,10 @@ function Profile() {
             {/* Contents_Introduce */}
             <Grid item xs={7.5} className={ProfileStyle.introduce}>
               <Typography id="transition-modal-description" sx={{ mt: 1 }}>
-                Introduce YourSelf in this box.
+                수정은 모달 내에서 OR 새로운 창에서
                 <br />
-                Write Anything You Want!
+                이미지, 뱃지, 팔로워 관리?, 소개글 수정
+                <br />다 하려면 새로운 창 필요하다고 생각
               </Typography>
             </Grid>
             {/* Edit Link */}
