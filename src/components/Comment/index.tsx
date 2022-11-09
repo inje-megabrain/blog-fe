@@ -5,6 +5,7 @@ import CommentRepo from '../../utils/commentRepo';
 import { useEffect } from 'react';
 import { useWindowEvent } from '../../hooks/useWindowEvent';
 import { isBottomPosIn } from '../../utils/scroll';
+import usePageCounter from '../../hooks/usePageCounter';
 
 type Props = {
   articleId: any;
@@ -28,18 +29,26 @@ const Comment = ({ articleId }: Props) => {
     operator,
   );
 
+  const { isBlocked, getNextCursor, confirmNextCursor } = usePageCounter();
+
+  const fetchNext = async () => {
+    if (!isBlocked()) {
+      if (await fetchComment(getNextCursor())) confirmNextCursor();
+    }
+  };
+
   useEffect(() => {
-    fetchComment(1);
+    fetchNext();
   }, []);
 
-  // useWindowEvent(
-  //   ['scroll'],
-  //   debounce((_) => {
-  //     if (isBottomPosIn(50) && isNext()) {
-  //       fetchNext();
-  //     }
-  //   }, 100),
-  // );
+  useWindowEvent(
+    ['scroll', 'wheel'],
+    debounce((_) => {
+      if (isBottomPosIn(50)) {
+        fetchNext();
+      }
+    }, 100),
+  );
 
   return (
     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>

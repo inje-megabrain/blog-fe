@@ -101,6 +101,7 @@ function handleFromDispatch(
         type: 'ASSIGN',
         payload: [...state.comments, ...coming.map(commentMapping)],
       });
+      return Array.isArray(coming) && coming.length > 0;
     },
     async expand(commentId: number) {
       const [selected, index] = getUIComment(state.comments, commentId);
