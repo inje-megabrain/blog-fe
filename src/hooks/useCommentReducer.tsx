@@ -1,14 +1,5 @@
 import { Dispatch, useReducer } from 'react';
-import { Comment } from '../types/comment';
-
-/**
- *  For 2 depth
- */
-export interface UIComment extends Comment {
-  isExpand: boolean;
-  alreadyFetch: boolean;
-  children: Comment[] | undefined;
-}
+import { Comment, UIComment } from '../types/comment';
 
 export type Action = {
   type: keyof typeof ActionType;
@@ -23,12 +14,12 @@ export type State = {
 };
 
 export const ActionType = {
-  ASSIGN: 'assign',
-  LOADING: 'loading',
-  ERROR: 'error',
-  DONE: 'done',
+  ASSIGN: 'ASSIGN',
+  LOADING: 'LOADING',
+  ERROR: 'ERROR',
+  DONE: 'DONE',
   // 미완
-  SORT: 'sort',
+  SORT: 'SORT',
 };
 
 export const INITIAL_STATE: State = {
@@ -105,8 +96,11 @@ function handleFromDispatch(
     async fetchComment(page: number) {
       // 로딩 상태
       dispatch({ type: 'LOADING' });
-      const comming = await operator.fetchTopLevelComment(articleId, page);
-      dispatch({ type: 'ASSIGN', payload: [...state.comments, ...comming] });
+      const coming = await operator.fetchTopLevelComment(articleId, page);
+      dispatch({
+        type: 'ASSIGN',
+        payload: [...state.comments, ...coming.map(commentMapping)],
+      });
     },
     async expand(commentId: number) {
       const [selected, index] = getUIComment(state.comments, commentId);

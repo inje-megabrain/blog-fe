@@ -6,6 +6,7 @@ import TestChildrenPage from './pages/TestChildren';
 import TextEditor from './pages/TextEditor';
 import InfiniteScroll from './pages/InfiniteScroll';
 import { RecoilRoot } from 'recoil';
+import CommentPage from './pages/CommentPage';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: 'infinite',
     element: <InfiniteScroll />,
+  },
+  {
+    path: 'comment',
+    element: <CommentPage />,
   },
 ]);
 
