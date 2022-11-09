@@ -16,8 +16,14 @@ const operator: Operator = {
   async fetchTopLevelComment(articleId, page) {
     return CommentRepo.page(articleId, page, 15);
   },
-  async fetchChildrenComment(commentId) {
-    return CommentRepo.search(commentId);
+  // async fetchChildrenComment(commentId) {
+
+  //   return CommentRepo.search(commentId);
+  // },
+  fetchChildrenComment(commentId) {
+    return new Promise((res, rej) => {
+      setTimeout(() => res(CommentRepo.search(commentId)), 1000);
+    });
   },
 };
 
@@ -33,7 +39,7 @@ const Comment = ({ articleId }: Props) => {
 
   const fetchNext = async () => {
     if (!isBlocked()) {
-      if (await fetchComment(getNextCursor())) confirmNextCursor();
+      confirmNextCursor(await fetchComment(getNextCursor()));
     }
   };
 

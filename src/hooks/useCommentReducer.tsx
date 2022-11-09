@@ -106,9 +106,20 @@ function handleFromDispatch(
     async expand(commentId: number) {
       const [selected, index] = getUIComment(state.comments, commentId);
 
+      // 일단 열기
+      dispatch({
+        type: 'ASSIGN',
+        payload: replaceCommentAt(
+          index,
+          {
+            ...selected,
+            isExpand: true,
+          },
+          state.comments,
+        ),
+      });
+
       if (!selected.alreadyFetch) {
-        // 로딩 상태 전환
-        dispatch({ type: 'LOADING' });
         // 대댓글 가져오기
         const comments = await operator.fetchChildrenComment(commentId);
         // State에 할당.
@@ -121,18 +132,6 @@ function handleFromDispatch(
               isExpand: true,
               alreadyFetch: true,
               children: comments,
-            },
-            state.comments,
-          ),
-        });
-      } else {
-        dispatch({
-          type: 'ASSIGN',
-          payload: replaceCommentAt(
-            index,
-            {
-              ...selected,
-              isExpand: true,
             },
             state.comments,
           ),

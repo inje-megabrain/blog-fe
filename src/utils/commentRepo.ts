@@ -304,7 +304,7 @@ const data: Comment[] = [
     writer: 'user33',
     content: 'content33',
     postAt: '2022-11-08T15:20:17.797Z',
-    hasChild: false,
+    hasChild: true,
     parentId: -1,
   },
   {
@@ -314,7 +314,7 @@ const data: Comment[] = [
     content: 'content34',
     postAt: '2022-11-08T15:20:17.797Z',
     hasChild: false,
-    parentId: -1,
+    parentId: 34,
   },
   {
     id: 36,
@@ -323,7 +323,7 @@ const data: Comment[] = [
     content: 'content35',
     postAt: '2022-11-08T15:20:17.797Z',
     hasChild: false,
-    parentId: -1,
+    parentId: 34,
   },
   {
     id: 37,
@@ -332,7 +332,7 @@ const data: Comment[] = [
     content: 'content36',
     postAt: '2022-11-08T15:20:17.797Z',
     hasChild: false,
-    parentId: -1,
+    parentId: 34,
   },
   {
     id: 38,
@@ -341,7 +341,7 @@ const data: Comment[] = [
     content: 'content37',
     postAt: '2022-11-08T15:20:17.797Z',
     hasChild: false,
-    parentId: -1,
+    parentId: 34,
   },
   {
     id: 39,
@@ -350,7 +350,7 @@ const data: Comment[] = [
     content: 'content38',
     postAt: '2022-11-08T15:20:17.797Z',
     hasChild: false,
-    parentId: -1,
+    parentId: 34,
   },
   {
     id: 40,

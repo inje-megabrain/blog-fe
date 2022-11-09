@@ -20,9 +20,9 @@ export default function usePageCounter(initialCursor = 0) {
       }
       return initialCursor;
     },
-    confirmNextCursor() {
+    confirmNextCursor(success: boolean) {
       if (page.current) {
-        page.current.cursor += 1;
+        if (success) page.current.cursor++;
         page.current.blocked = false;
       }
     },

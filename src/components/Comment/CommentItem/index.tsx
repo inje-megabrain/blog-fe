@@ -1,4 +1,3 @@
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import {
   Avatar,
   Button,
@@ -8,11 +7,18 @@ import {
   ListItemAvatar,
   ListItemText,
   Stack,
-  Typography,
+  SxProps,
+  Theme,
 } from '@mui/material';
 import React from 'react';
 import { UIComment } from '../../../types/comment';
 import CommentChild from '../CommentChild';
+import CommentChildSkeleton from '../CommentChild/skeleton';
+
+const expandButtonStyle: SxProps<Theme> = {
+  fontSize: '14px',
+  padding: '2px',
+};
 
 type Props = {
   data: UIComment;
@@ -23,6 +29,7 @@ type Props = {
 const CommentItem = ({ data, expand, unexpand }: Props) => {
   const handleExpand = () => expand(data.id);
   const handleUnExpand = () => unexpand(data.id);
+  const indent = 7;
 
   return (
     <>
@@ -49,20 +56,30 @@ const CommentItem = ({ data, expand, unexpand }: Props) => {
           />
           {data.hasChild ? (
             data.isExpand ? (
-              <Button onClick={handleUnExpand}>감추기...</Button>
+              <Button sx={expandButtonStyle} onClick={handleUnExpand}>
+                감추기...
+              </Button>
             ) : (
-              //<ExpandMore />
-              // <ExpandLess />
-              <Button onClick={handleExpand}>더보기...</Button>
+              <Button sx={expandButtonStyle} onClick={handleExpand}>
+                더보기...
+              </Button>
             )
           ) : undefined}
         </Stack>
       </ListItem>
       <Collapse in={data.isExpand} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {data.children?.map((child) => (
-            <CommentChild key={child.id} data={child} />
-          ))}
+          {data.alreadyFetch ? (
+            data.children?.map((child) => (
+              <ListItem sx={{ pl: indent }}>
+                <CommentChild key={child.id} data={child} />
+              </ListItem>
+            ))
+          ) : (
+            <ListItem sx={{ pl: indent }}>
+              <CommentChildSkeleton />
+            </ListItem>
+          )}
         </List>
       </Collapse>
     </>

@@ -7,7 +7,7 @@ type Props = {
 
 const CommentChild = ({ data }: Props) => {
   return (
-    <ListItem>
+    <>
       <ListItemText
         // primary="Brunch this weekend?"
         secondary={
@@ -24,7 +24,7 @@ const CommentChild = ({ data }: Props) => {
           </>
         }
       />
-    </ListItem>
+    </>
   );
 };
 
