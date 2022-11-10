@@ -24,17 +24,15 @@ const MenuAppContent = ({ col, handleDetail }: Props) => {
 
   return (
     <Grid container spacing={2} css={{ paddingTop: '10px' }}>
-      {menuAppItems.map(({ name, to, SvgIcon, Component }, idx) => (
+      {menuAppItems.map((AppData, idx) => (
         <Grid css={centerStyled} item xs={colTemplate} key={idx}>
-          {Component ? (
+          {AppData.Component ? (
             <MenuAppItem
-              name={name}
-              to={to}
-              SvgIcon={SvgIcon}
-              handleClick={handleDetail(<Component />)}
+              data={AppData}
+              handleClick={handleDetail(<AppData.Component />)}
             />
           ) : (
-            <MenuAppItem name={name} to={to} SvgIcon={SvgIcon} />
+            <MenuAppItem data={AppData} />
           )}
         </Grid>
       ))}

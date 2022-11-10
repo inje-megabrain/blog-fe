@@ -1,13 +1,24 @@
-import { IconButton, SvgIconTypeMap } from '@mui/material';
+import { Badge, IconButton, SvgIconTypeMap } from '@mui/material';
 import { css } from '@emotion/react';
 import { FC } from 'react';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
+import { useRecoilValue } from 'recoil';
+import { noticeState } from '../../../states/noticeState';
 
 type Props = {
+  data: {
+    id: string;
+    name: string;
+    to: string;
+    SvgIcon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>;
+  };
   handleClick?: () => void;
-  name: string;
+};
+
+type WrapperProps = {
+  handleClick?: () => void;
   to: string;
-  SvgIcon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>;
+  children: any;
 };
 
 const buttonStyled = css`
@@ -34,23 +45,17 @@ const spanStyled = css`
   white-space: nowrap;
 `;
 
-const Notice: FC<Props> = ({ handleClick, name, SvgIcon, to }) => {
+const MenuAppItemWrapper = ({ handleClick, children, to }: WrapperProps) => {
   return (
     <>
       {handleClick ? (
         <IconButton css={buttonStyled} onClick={handleClick}>
-          <div css={centerStyled}>
-            <SvgIcon css={iconStyled} />
-            <span css={spanStyled}>{name}</span>
-          </div>
+          {children}
         </IconButton>
       ) : (
         <a href={to} style={{ textDecoration: 'none' }}>
-          <IconButton css={buttonStyled}>
-            <div css={centerStyled}>
-              <SvgIcon css={iconStyled} />
-              <span css={spanStyled}>{name}</span>
-            </div>
+          <IconButton css={buttonStyled} onClick={handleClick}>
+            {children}
           </IconButton>
         </a>
       )}
@@ -58,4 +63,36 @@ const Notice: FC<Props> = ({ handleClick, name, SvgIcon, to }) => {
   );
 };
 
-export default Notice;
+const MenuAppItem: FC<Props> = ({ data, handleClick }) => {
+  const { app } = useRecoilValue(noticeState);
+
+  return (
+    <MenuAppItemWrapper to={data.to} handleClick={handleClick}>
+      <Badge css={centerStyled} badgeContent={app[data.id]} color="primary">
+        <data.SvgIcon css={iconStyled} />
+        <span css={spanStyled}>{data.name}</span>
+      </Badge>
+    </MenuAppItemWrapper>
+  );
+  // <Badge badgeContent={app[data.id]} color="primary">
+  //   {handleClick ? (
+  //     <IconButton css={buttonStyled} onClick={handleClick}>
+  //       <div css={centerStyled}>
+  //         <data.SvgIcon css={iconStyled} />
+  //         <span css={spanStyled}>{data.name}</span>
+  //       </div>
+  //     </IconButton>
+  //   ) : (
+  //     <a href={data.to} style={{ textDecoration: 'none' }}>
+  //       <IconButton css={buttonStyled}>
+  //         <div css={centerStyled}>
+  //           <data.SvgIcon css={iconStyled} />
+  //           <span css={spanStyled}>{data.name}</span>
+  //         </div>
+  //       </IconButton>
+  //     </a>
+  //   )}
+  // </Badge>
+};
+
+export default MenuAppItem;

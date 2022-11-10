@@ -6,13 +6,14 @@ import MenuDetailTab from '../MenuDetailTab';
 
 type Props = {
   col?: number;
-  setNotice: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const paperStyled = css`
   padding: 0px 15px 5px 15px;
   border-radius: 8px;
   border: 1px solid #eee;
+  height: 200px;
+  width: 200px;
 
   overflow-y: auto;
 
@@ -27,7 +28,7 @@ const paperStyled = css`
   }
 `;
 
-const MenuContent = ({ col = 3, setNotice }: Props) => {
+const MenuContent = ({ col = 3 }: Props) => {
   const [content, setContent] = useState<null | JSX.Element>(null);
 
   const handleHome = () => setContent(null);
