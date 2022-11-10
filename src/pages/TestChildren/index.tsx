@@ -1,7 +1,21 @@
+import { Button } from '@mui/material';
+import { useState } from 'react';
+import TagSelectorModal from '../../components/TagSelectorModal';
+import useModal from '../../hooks/useModal';
+
 const TestChildrenPage = () => {
+  const { isOpen, toggle } = useModal();
+  const [selectTagData, setSelectTagData] = useState<string[] | undefined>([]);
+
   return (
     <div>
-      <h1>하위 페이지</h1>
+      <Button onClick={toggle}>Open modal</Button>
+      <TagSelectorModal
+        open={isOpen}
+        handleOpen={toggle}
+        selectTagData={selectTagData!}
+        setSelectTagData={setSelectTagData}
+      />
     </div>
   );
 };
