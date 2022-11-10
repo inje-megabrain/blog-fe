@@ -1,11 +1,11 @@
-import { ListItem, ListItemText, Typography } from '@mui/material';
+import { ListItemText, Typography } from '@mui/material';
 import { Comment } from '../../../types/comment';
 
 type Props = {
   data: Comment;
 };
 
-const CommentChild = ({ data }: Props) => {
+const CommentReply = ({ data }: Props) => {
   return (
     <>
       <ListItemText
@@ -28,4 +28,4 @@ const CommentChild = ({ data }: Props) => {
   );
 };
 
-export default CommentChild;
+export default CommentReply;

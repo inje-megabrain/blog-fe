@@ -2,8 +2,8 @@ import Comment from '../../components/Comment';
 
 const CommentPage = () => {
   return (
-    <div>
-      <Comment articleId={0} />
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <Comment articleId={1} />
     </div>
   );
 };

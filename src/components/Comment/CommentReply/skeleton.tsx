@@ -1,6 +1,6 @@
-import { Skeleton, Stack, Box, ListItem } from '@mui/material';
+import { Skeleton, Stack, Box } from '@mui/material';
 
-const CommentChildSkeleton = () => {
+const CommentReplySkeleton = () => {
   return (
     <Stack direction="row" spacing={2}>
       <Skeleton height={40} width={40} variant="rounded" />
@@ -14,4 +14,4 @@ const CommentChildSkeleton = () => {
   );
 };
 
-export default CommentChildSkeleton;
+export default CommentReplySkeleton;

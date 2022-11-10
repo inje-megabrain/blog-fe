@@ -1,4 +1,4 @@
-import { debounce, List } from '@mui/material';
+import { Box, debounce, List } from '@mui/material';
 import CommentItem from './CommentItem';
 import useCommentReducer, { Operator } from '../../hooks/useCommentReducer';
 import CommentRepo from '../../utils/commentRepo';
@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useWindowEvent } from '../../hooks/useWindowEvent';
 import { isBottomPosIn } from '../../utils/scroll';
 import usePageCounter from '../../hooks/usePageCounter';
+import CommentWrite from './CommentWrite';
 
 type Props = {
   articleId: any;
@@ -57,16 +58,19 @@ const Comment = ({ articleId }: Props) => {
   );
 
   return (
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      {state.comments.map((comment) => (
-        <CommentItem
-          key={comment.id}
-          data={comment}
-          expand={expand}
-          unexpand={unexpand}
-        />
-      ))}
-    </List>
+    <Box>
+      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+        {state.comments.map((comment) => (
+          <CommentItem
+            key={comment.id}
+            data={comment}
+            expand={expand}
+            unexpand={unexpand}
+          />
+        ))}
+      </List>
+      <CommentWrite articleId={articleId} />
+    </Box>
   );
 };
 
