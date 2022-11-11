@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import useInfinitePage, { Operator } from '../../hooks/useInfinitePage';
 import debounce from '../../utils/debounce';
 import { isBottomPosIn } from '../../utils/scroll';
-import { useWindowEvent } from '../../hooks/useWindowEvent';
 import useToggleButtons from '../../hooks/useToggleButtons';
 import { defaultDetector } from '../../utils/plugins/duplicated';
 import { Page, Bundle } from '../../types/page';
@@ -10,6 +9,7 @@ import { ViewList, ViewModule } from '@mui/icons-material';
 import ListView from './ListView';
 import ViewStyle from './View.module.css';
 import CardView from './CardView';
+import { useWindowEvent } from '../../hooks/useWindowEvent';
 
 //#region Interface & Impl
 // Issue #7
@@ -21,7 +21,7 @@ const operator: Operator<Page, Bundle> = {
 
     return limit > expect ? expect : undefined;
   },
-  async fetchNextPage(nextCursor = 1, bundle = { per: 25 }) {
+  async fetchNextPage(nextCursor = 1, bundle = { per: 20 }) {
     const response = await fetch(
       `https://api.github.com/search/repositories?q=topic:reactjs&per_page=${bundle.per}&page=${nextCursor}`,
     );
@@ -39,7 +39,7 @@ const InfiniteScroll = () => {
     useInfinitePage<Page, Bundle>(
       operator,
       [defaultDetector((n) => console.log(n))],
-      { per: 25 },
+      { per: 3 },
     );
 
   const [ToggleGroup, selected] = useToggleButtons({
@@ -49,7 +49,7 @@ const InfiniteScroll = () => {
 
   // register Scroll Event to Window
   useWindowEvent(
-    ['scroll'],
+    ['scroll', 'wheel'],
     debounce((_) => {
       if (isBottomPosIn(50, containerRef.current) && isNext()) {
         fetchNext();
