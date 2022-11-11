@@ -1,13 +1,7 @@
-import React from 'react';
-//import "./style.css";
+//import React from 'react';
 import TextField from '@mui/material/TextField';
-//import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
-//import FormControlLabel from '@mui/material/FormControlLabel';
-//import Link from '@mui/material/Link';
-//import Grid from '@mui/material/Grid';
-//import Typography from '@mui/material/Typography';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import CreateIcon from '@mui/icons-material/Create';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -24,7 +18,7 @@ export default function App() {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
+          <CreateIcon />
         </Avatar>
 
         <TextField

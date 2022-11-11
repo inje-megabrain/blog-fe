@@ -1,41 +1,28 @@
 import React, { useState } from 'react';
-//import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 //import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import {
   Avatar,
   Button,
   CssBaseline,
   TextField,
   FormControl,
-  FormControlLabel,
-  Checkbox,
-  FormHelperText,
   Grid,
   Box,
   Typography,
   Container,
 } from '@mui/material';
-import styled from 'styled-components';
-
-const FormHelperTexts = styled(FormHelperText)`
-  width: 100%;
-  padding-left: 16px;
-  font-weight: 700 !important;
-  color: #d32f2f !important;
-`;
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
 
 function Signup() {
-  //const navigate = useNavigate();
-
   const [checked, setChecked] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordState, setPasswordState] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [nameError, setNameError] = useState('');
   const [registerError, setRegisterError] = useState('');
-
-  //const history = useHistory();
 
   const handleAgree = (event: any) => {
     setChecked(event.target.checked);
@@ -70,47 +57,44 @@ function Signup() {
       rePassword: data.get('rePassword'),
     };
     const { email, name, password, rePassword } = joinData;
+  };
 
+  const schema = Yup.object().shape({
     // 이메일 유효성 체크
-    const emailRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    if (!emailRegex.test(email))
-      setEmailError('올바른 이메일 형식이 아닙니다.');
-    else setEmailError('');
+    email: Yup.string()
+      .email('이메일 형식이 맞지 않습니다')
+      .required('이메일을 입력해주세요'),
 
     // 비밀번호 유효성 체크
-    const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    if (!passwordRegex.test(password))
-      setPasswordState(
-        '숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!',
-      );
-    else setPasswordState('');
-
+    password: Yup.string()
+      .required('8-16자 영문 대소문자, 숫자, 특수문자를 1개씩 포함해주세요')
+      .min(8, '8-16자 영문 대소문자, 숫자, 특수문자를 1개씩 포함해주세요')
+      .max(16, '8-16자 영문 대소문자, 숫자, 특수문자를 1개씩 포함해주세요')
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        '8-16자 영문 대소문자, 숫자, 특수문자를 1개씩 포함해주세요',
+      ),
     // 비밀번호 같은지 체크
-    if (password !== rePassword)
-      setPasswordError('비밀번호가 일치하지 않습니다.');
-    else setPasswordError('');
+    passwordcheck: Yup.string()
+      .required('비밀번호 확인은 필수입니다')
+      .oneOf([Yup.ref('password')], '비밀번호가 일치하지 않습니다'),
 
     // 이름 유효성 검사
-    const nameRegex = /^[가-힣a-zA-Z]+$/;
-    if (!nameRegex.test(name) || name.length < 1)
-      setNameError('올바른 이름을 입력해주세요.');
-    else setNameError('');
-
-    // 회원가입 동의 체크
-    if (!checked) alert('회원가입 약관에 동의해주세요.');
-
-    if (
-      emailRegex.test(email) &&
-      passwordRegex.test(password) &&
-      password === rePassword &&
-      nameRegex.test(name) &&
-      checked
-    ) {
-      onhandlePost(joinData);
-    }
-  };
+    name: Yup.string().required('이름을 입력해주세요'),
+    username: Yup.string()
+      .required('올바른 아이디를 입력해주세요')
+      .min(5, '아이디는 최소 5자로 입력해주세요')
+      .max(12, '아이디는 최대 12자로 입력해주세요'),
+  });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    mode: 'onChange',
+    resolver: yupResolver(schema),
+  });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -137,56 +121,58 @@ function Signup() {
                   fullWidth
                   type="email"
                   id="email"
-                  name="email"
                   label="이메일 주소"
                   variant="standard"
                   error={emailError !== '' || false}
+                  {...register('email')}
                 />
+                <h5 style={{ color: 'hotpink' }}>
+                  {errors.email?.message?.toString()}
+                </h5>
               </Grid>
-              <FormHelperTexts>{emailError}</FormHelperTexts>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
                   type="password"
                   id="password"
-                  name="password"
                   label="비밀번호 (숫자+영문자+특수문자 8자리 이상)"
                   variant="standard"
                   error={passwordState !== '' || false}
+                  {...register('password')}
                 />
+                <h5 style={{ color: 'hotpink' }}>
+                  {errors.password?.message?.toString()}
+                </h5>
               </Grid>
-              <FormHelperTexts>{passwordState}</FormHelperTexts>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
                   type="password"
-                  id="rePassword"
-                  name="rePassword"
+                  id="passwordcheck"
                   label="비밀번호 재입력"
                   variant="standard"
                   error={passwordError !== '' || false}
+                  {...register('passwordcheck')}
                 />
+                <h5 style={{ color: 'hotpink' }}>
+                  {errors.passwordcheck?.message?.toString()}
+                </h5>
               </Grid>
-              <FormHelperTexts>{passwordError}</FormHelperTexts>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
                   id="name"
-                  name="name"
                   label="이름"
                   variant="standard"
                   error={nameError !== '' || false}
+                  {...register('name')}
                 />
-              </Grid>
-              <FormHelperTexts>{nameError}</FormHelperTexts>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox onChange={handleAgree} color="primary" />}
-                  label="회원가입 약관에 동의합니다."
-                />
+                <h5 style={{ color: 'hotpink' }}>
+                  {errors.name?.message?.toString()}
+                </h5>
               </Grid>
             </Grid>
             <Button
@@ -199,7 +185,7 @@ function Signup() {
               회원가입
             </Button>
           </FormControl>
-          <FormHelperTexts>{registerError}</FormHelperTexts>
+          <h4>{registerError}</h4>
         </Box>
       </Box>
     </Container>
