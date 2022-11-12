@@ -5,6 +5,7 @@ import Root from './pages/Main';
 import TestChildrenPage from './pages/TestChildren';
 import TextEditor from './pages/TextEditor';
 import InfiniteScroll from './pages/InfiniteScroll';
+import JWTLogin from './pages/JWTLogin';
 import { RecoilRoot } from 'recoil';
 
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: 'infinite',
     element: <InfiniteScroll />,
+  },
+  {
+    path: 'jwt',
+    element: <JWTLogin />,
   },
 ]);
 

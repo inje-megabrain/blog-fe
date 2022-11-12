@@ -1,7 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const Constants = () => {
+const API_URL = 'http://localhost:8080/api';
+//const API_URL = 'https://api.iamport.kr/users/getToken';
 
-}
-
-export default Constants;
+export default { API_URL };
