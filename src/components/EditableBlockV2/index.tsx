@@ -1,10 +1,14 @@
-import React, { KeyboardEvent } from 'react';
 import autobind from 'autobind-decorator';
 import ContentEditable from 'react-contenteditable';
 import getCaretCoordinates from '../../utils/getCaretCoordinates';
 import setCaretToEnd from '../../utils/setCaretToEnd';
 import SelectSlashMenu from '../EditableSlashSelectMenu';
-import { Props } from './types';
+import {
+  BlockChangeEvent,
+  BlockKeyDownEvent,
+  BlockKeyDownHandler,
+  Props,
+} from './types';
 import TagSupporter from './tagSupporter';
 import DraggableBlock from './draggableBlock';
 
@@ -14,46 +18,66 @@ const CMD_KEY = '/';
 class EditableBlock extends DraggableBlock {
   fileInput!: HTMLInputElement | null;
 
-  static readonly styleOnCaptured = {
-    backgroundColor: '#b3d4fc',
+  constructor(props: Props) {
+    super(props, {
+      htmlBackup: null,
+      html: '',
+      tag: 'p',
+      imageUrl: '',
+      isHovering: false,
+      selectMenuIsOpen: false,
+      selectMenuPosition: {
+        x: null,
+        y: null,
+      },
+      actionMenuOpen: false,
+      actionMenuPosition: {
+        x: null,
+        y: null,
+      },
+    });
+  }
+
+  onHandlers = {
+    onChange: (e: BlockChangeEvent) => {
+      let result;
+      if ((result = TagSupporter.support(e.target.value))) {
+        this.setState(
+          {
+            tag: result[0],
+            html: result[1],
+          },
+          () => setCaretToEnd(this.contentEditable.current),
+        );
+      } else {
+        this.setState({ html: e.target.value });
+      }
+    },
+    onKeyDown: (e: BlockKeyDownEvent) => {
+      if (Object.hasOwn(this.keyDownHandler, e.key)) {
+        this.keyDownHandler[e.key](e);
+      }
+    },
+    onKeyUp: (e: { key: string }) => {
+      if (e.key === CMD_KEY) {
+        this.openSelectMenuHandler();
+      }
+    },
+    onFocus: () => {
+      this.props.onFocusBlock({
+        id: this.props.id,
+        html: this.state.html,
+        tag: this.state.tag,
+        captured: this.props.captured,
+      });
+    },
   };
 
-  constructor(props: Props) {
-    super(props);
-  }
-
-  replaceTagAndHtml(tag: string, html: string) {
-    this.setState(
-      {
-        html,
-        tag,
-      },
-      () => setCaretToEnd(this.contentEditable.current),
-    );
-  }
-
-  // MD 문법 사용 가능케 하도록 정규 표현식으로 tag 바꾸기
-  @autobind
-  onChangeHandler({ target: { value } }: { target: { value: string } }) {
-    let result;
-    if ((result = TagSupporter.support(value))) {
-      this.replaceTagAndHtml(...result);
-    } else {
-      this.setState({ html: value });
-    }
-  }
-
-  @autobind
-  onKeyDownHandler(e: {
-    key: string;
-    shiftKey: KeyboardEvent['shiftKey'];
-    nativeEvent: { isComposing: KeyboardEvent['nativeEvent']['isComposing'] };
-    preventDefault: () => void;
-  }) {
-    if (e.key === CMD_KEY) {
+  keyDownHandler: BlockKeyDownHandler = {
+    [CMD_KEY]: (e) => {
       this.setState({ htmlBackup: this.state.html });
-    }
-    if (e.key === 'ArrowUp') {
+    },
+    ArrayUp: (e) => {
       e.preventDefault();
       this.props.changeCursor(
         {
@@ -64,7 +88,8 @@ class EditableBlock extends DraggableBlock {
         },
         false,
       );
-    } else if (e.key === 'ArrowDown') {
+    },
+    ArrayDown: (e) => {
       e.preventDefault();
       this.props.changeCursor(
         {
@@ -75,60 +100,45 @@ class EditableBlock extends DraggableBlock {
         },
         true,
       );
-    }
-    if (e.key === 'Enter' && !e.shiftKey) {
-      if (e.nativeEvent.isComposing) {
-        return;
+    },
+    Enter: (e) => {
+      if (!e.shiftKey) {
+        if (e.nativeEvent.isComposing) {
+          return;
+        }
+        if (!this.state.selectMenuIsOpen) {
+          e.preventDefault();
+          this.props.addBlock(
+            {
+              id: this.props.id,
+              html: this.state.html,
+              tag: this.state.tag,
+              imageUrl: this.state.imageUrl,
+              captured: this.props.captured,
+            },
+            this.state.tag,
+          );
+        }
       }
-      if (!this.state.selectMenuIsOpen) {
+    },
+    Backspace: (e) => {
+      if (!this.state.html) {
         e.preventDefault();
-        this.props.addBlock(
-          {
-            id: this.props.id,
-            html: this.state.html,
-            tag: this.state.tag,
-            imageUrl: this.state.imageUrl,
-            captured: this.props.captured,
-          },
-          this.state.tag,
-        );
-      }
-    }
-    if (e.key === 'Backspace' && !this.state.html) {
-      e.preventDefault();
-      if (this.state.tag === 'li') {
-        this.setState({ tag: 'p' }, () => {
-          setCaretToEnd(this.contentEditable.current);
+        if (this.state.tag === 'li') {
+          this.setState({ tag: 'p' }, () => {
+            setCaretToEnd(this.contentEditable.current);
+          });
+          return;
+        }
+        this.props.deleteBlock({
+          id: this.props.id,
+          html: this.state.html,
+          tag: this.state.tag,
+          captured: this.props.captured,
         });
-        return;
       }
-      this.props.deleteBlock({
-        id: this.props.id,
-        html: this.state.html,
-        tag: this.state.tag,
-        captured: this.props.captured,
-      });
-    } else if (e.key === 'Backspace') {
-      //TO-DO 비어있지 않는 block에서도 삭제 가능하게
-    }
-  }
-
-  @autobind
-  onKeyUpHandler(e: { key: string }) {
-    if (e.key === CMD_KEY) {
-      this.openSelectMenuHandler();
-    }
-  }
-
-  @autobind
-  onFocusHandler() {
-    this.props.onFocusBlock({
-      id: this.props.id,
-      html: this.state.html,
-      tag: this.state.tag,
-      captured: this.props.captured,
-    });
-  }
+    },
+  };
 
   @autobind
   openSelectMenuHandler() {
@@ -221,10 +231,7 @@ class EditableBlock extends DraggableBlock {
             innerRef={this.contentEditable}
             html={this.state.html}
             tagName={this.state.tag}
-            onChange={this.onChangeHandler}
-            onKeyDown={this.onKeyDownHandler}
-            onKeyUp={this.onKeyUpHandler}
-            onFocus={this.onFocusHandler}
+            {...this.onHandlers}
           />
         ) : (
           <div

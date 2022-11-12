@@ -29,3 +29,18 @@ export type States = {
     y: number | null | undefined;
   };
 };
+
+export interface BlockKeyDownEvent {
+  key: string;
+  shiftKey: KeyboardEvent['shiftKey'];
+  nativeEvent: { isComposing: KeyboardEvent['nativeEvent']['isComposing'] };
+  preventDefault: () => void;
+}
+
+export interface BlockKeyDownHandler {
+  [key: string]: (e: BlockKeyDownEvent) => void;
+}
+
+export interface BlockChangeEvent {
+  target: { value: string };
+}

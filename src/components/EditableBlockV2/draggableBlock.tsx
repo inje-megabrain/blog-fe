@@ -10,27 +10,10 @@ import EditableActionMenu from '../EditableActionMenu';
 class DraggableBlock extends React.Component<Props, States> {
   contentEditable: React.RefObject<HTMLElement>;
 
-  static readonly DEFAULT_STATE = {
-    htmlBackup: null,
-    html: '',
-    tag: 'p',
-    imageUrl: '',
-    isHovering: false,
-    selectMenuIsOpen: false,
-    selectMenuPosition: {
-      x: null,
-      y: null,
-    },
-    actionMenuOpen: false,
-    actionMenuPosition: {
-      x: null,
-      y: null,
-    },
-  };
-  constructor(props: Props) {
+  constructor(props: Props, initialState: States) {
     super(props);
     this.contentEditable = React.createRef();
-    this.state = Object.create(DraggableBlock.DEFAULT_STATE);
+    this.state = initialState;
   }
 
   componentDidMount() {
