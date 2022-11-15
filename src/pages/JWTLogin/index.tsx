@@ -39,7 +39,7 @@ const jwtLogin = () => {
   };
 
   useEffect(() => {
-    console.log(token);
+    //console.log(token);
   }, [setToken]);
 
   const cookiecheck = () => {
