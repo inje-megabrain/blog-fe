@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -6,6 +6,8 @@ import Container from '@mui/material/Container';
 import axios from 'axios';
 import API_URL from '../../constants/Constants';
 import { setCookie, getCookie } from '../../utils/cookie';
+import { AccessToken } from '../../states/AccessToken';
+import { useRecoilState } from 'recoil';
 
 const headerConfig = {
   'Content-Type': 'application/json',
@@ -13,42 +15,36 @@ const headerConfig = {
 };
 
 const jwtLogin = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  const [token, setToken] = useRecoilState<string>(AccessToken);
   const onLogin = () => {
     console.log('jwt check');
     axios
-      .post('http://api.iamport.kr/users/getToken', null, {
+      .post(API_URL + '/login', null, {
         params: {
-          imp_key: '2572615525341412',
-          imp_secret:
-            'IRaiPEHjB5WrLFF12kjuPiHY4qL7QV6qW3fmFUUPqAeNsd2A7SDhbz06biyC7wCLB8VeDHmC487tepR5',
+          id: 'mega',
+          password: 'mega123!@#',
         },
         headers: headerConfig,
       })
       .then(function (response) {
-        axios.defaults.headers.common[
-          'Authorization'
-        ] = `Bearer ${response.data.response.access_token}`;
-        const jwtToken = response.data.response.access_token;
-        setCookie('accessJwtToken', jwtToken);
-        return response.data.response.access_token;
+        const refreshToken = response.data.response.refresh_token;
+        setToken(response.data.response.access_token);
+        setCookie('refreshtoken', refreshToken);
+        return response.data.response.refresh_token;
       })
       .catch((error) => {
         console.log(error);
         return '아이디 혹은 비밀번호를 확인하세요';
       });
   };
-  const getToken = () => {
-    const userInfo = getCookie('accessJwtToken');
-    console.log('click');
-    return userInfo;
+
+  useEffect(() => {
+    //console.log(token);
+  }, [setToken]);
+
+  const cookiecheck = () => {
+    setCookie('cookietest', 'cookievalue');
+    console.log(getCookie('cookietest'));
   };
 
   return (
@@ -86,7 +82,7 @@ const jwtLogin = () => {
       </Button>
       <Button
         onClick={() => {
-          getToken();
+          cookiecheck();
         }}
       >
         Cookie check
