@@ -6,8 +6,8 @@ import FadeModal from './FadeModal';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import CreateIcon from '@mui/icons-material/Create';
-import LinkIcon from '@mui/icons-material/Link';
 import { Link } from 'react-router-dom';
+import useModal from '../../hooks/useModal';
 // import { IconButton } from "@mui/material";
 // import GitHubIcon from "@mui/icons-material/GitHub";
 // import InstagramIcon from "@mui/icons-material/Instagram";
@@ -15,9 +15,7 @@ import { Link } from 'react-router-dom';
 // import FacebookIcon from "@mui/icons-material/Facebook";
 
 function Profile() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const { isOpen, toggle } = useModal();
 
   const [follow, setFollow]: any = useState('FOLLOW');
   const toggleFollow = () =>
@@ -52,10 +50,7 @@ function Profile() {
               xs={12}
               sx={{ display: 'flex', justifyContent: 'flex-end' }}
             >
-              <Button
-                sx={{ fontSize: '10px', height: '5px' }}
-                onClick={handleOpen}
-              >
+              <Button sx={{ fontSize: '10px', height: '5px' }} onClick={toggle}>
                 Details
               </Button>
             </Grid>
@@ -66,7 +61,7 @@ function Profile() {
         </Box>
       </div>
       {/* Modal */}
-      <FadeModal open={open} handleClose={handleClose}>
+      <FadeModal open={isOpen} handleClose={toggle}>
         <Box className={ProfileStyle.boxStyle}>
           {/* Modal Title */}
           <Typography
@@ -98,7 +93,7 @@ function Profile() {
             </Grid>
             {/* Edit Link */}
             <Grid item className={ProfileStyle.modify} xs={12}>
-              <Link to="/profile/edit" style={{ color: 'black' }}>
+              <Link to="/ProfileImageUpload" style={{ color: 'black' }}>
                 수정
               </Link>
             </Grid>
