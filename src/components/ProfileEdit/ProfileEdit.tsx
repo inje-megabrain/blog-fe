@@ -2,6 +2,7 @@ import React from 'react';
 import Profile from '../Profile/Profile';
 import styled from 'styled-components';
 import ProfileImageUpload from './ProfileImageUpload';
+import ProfileIntroduceEdit from './ProfileIntroduceEdit';
 
 const ProfileEditLayout = styled.div`
   width: 100%;
@@ -11,7 +12,7 @@ const ProfileEditLayout = styled.div`
 
   .editBox {
     padding: 20px;
-    margin: 100px 50px 10px 50px;
+    margin: 100px 50px 20px 50px;
     border: 2px solid #000;
     width: 100%;
   }
@@ -19,6 +20,7 @@ const ProfileEditLayout = styled.div`
   .profileImage,
   .profileInfo,
   .profileFollower,
+  .profileLink,
   .profileBadge {
     padding: 10px;
     border: 2px solid #000;
@@ -35,9 +37,11 @@ function ProfileEdit() {
           프로필 이미지 변경
           <ProfileImageUpload />
         </div>
-        <div className="profileInfo"> 소개글 수정</div>
+        <div className="profileInfo">
+          소개글 수정 <ProfileIntroduceEdit />
+        </div>
         <div className="profileBadge">뱃지 선택</div>
-        <div className="profileFollower">팔로워 조회?</div>
+        <div className="profileLink">외부 링크 등록</div>
       </div>
     </ProfileEditLayout>
   );
