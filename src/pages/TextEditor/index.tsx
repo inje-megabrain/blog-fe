@@ -11,7 +11,7 @@ import { useState } from 'react';
 import EditablePage from '../../components/EditablePage';
 import LeftMenuBar from '../../components/EditorLeftMenu';
 import uid from '../../utils/uid';
-const initialBlock = { id: uid(), html: '', tag: 'h1' };
+const initialBlock = { id: uid(), html: '', tag: 'h1', captured: false };
 
 const TextEditor = () => {
   const [blocks, setBlocks] = useState([initialBlock]);
