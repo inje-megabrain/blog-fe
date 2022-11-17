@@ -93,7 +93,7 @@ function Profile() {
             </Grid>
             {/* Edit Link */}
             <Grid item className={ProfileStyle.modify} xs={12}>
-              <Link to="/ProfileImageUpload" style={{ color: 'black' }}>
+              <Link to="/ProfileEdit" style={{ color: 'black' }}>
                 수정
               </Link>
             </Grid>

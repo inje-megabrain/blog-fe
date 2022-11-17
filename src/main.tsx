@@ -6,7 +6,7 @@ import Root from './pages/Main';
 import TestChildrenPage from './pages/TestChildren';
 import TextEditor from './pages/TextEditor';
 import InfiniteScroll from './pages/InfiniteScroll';
-import ProfileImageUpload from './components/ProfileEdit/ProfileImageUpload';
+import ProfileEdit from './components/ProfileEdit/ProfileEdit';
 import { RecoilRoot } from 'recoil';
 
 const router = createBrowserRouter([
@@ -32,8 +32,8 @@ const router = createBrowserRouter([
     element: <Profile />,
   },
   {
-    path: 'ProfileImageUpload',
-    element: <ProfileImageUpload />,
+    path: 'ProfileEdit',
+    element: <ProfileEdit />,
   },
 ]);
 
