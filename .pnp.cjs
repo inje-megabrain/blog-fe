@@ -59,6 +59,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:18.2.0"],\
             ["react-router-dom", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:6.4.2"],\
             ["recoil", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:0.7.6"],\
+            ["source-map-support", "npm:0.5.21"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"],\
             ["vite", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:3.1.8"],\
             ["vite-tsconfig-paths", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:3.5.2"]\
@@ -2312,6 +2313,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:18.2.0"],\
             ["react-router-dom", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:6.4.2"],\
             ["recoil", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:0.7.6"],\
+            ["source-map-support", "npm:0.5.21"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"],\
             ["vite", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:3.1.8"],\
             ["vite-tsconfig-paths", "virtual:c00f4167253c39cd6b9d699e2ffe5c7a4127f84b933d69bac3a8520ca782db2226391c30523c645b6b233aa98a03da35d61c1606c4cabdb4c67fc1a0aaccdda0#npm:3.5.2"]\
