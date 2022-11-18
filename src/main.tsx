@@ -6,6 +6,7 @@ import TestChildrenPage from './pages/TestChildren';
 import TextEditor from './pages/TextEditor';
 import InfiniteScroll from './pages/InfiniteScroll';
 import { RecoilRoot } from 'recoil';
+import Home from './pages/Home';
 
 const router = createBrowserRouter([
   {
