@@ -1,5 +1,5 @@
 import { Plugin } from '../../hooks/useInfinitePage';
-import { Page, PageItem } from '../../components/InfinitePage/pageTypes';
+import { Page, PageItem } from '../../types/page';
 
 export interface Operator<P, I> {
   getItemsFromPage(page: P): I[];

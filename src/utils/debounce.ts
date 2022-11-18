@@ -2,7 +2,7 @@ export default function debounce(
   callback: (...args: any) => any,
   delay: number,
 ) {
-  let watcher: number;
+  let watcher: ReturnType<typeof setTimeout>;
 
   return (...args: any[]) => {
     if (watcher) {

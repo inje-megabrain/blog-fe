@@ -7,6 +7,7 @@ import TestChildrenPage from './pages/TestChildren';
 import TextEditor from './pages/TextEditor';
 import InfiniteScroll from './pages/InfiniteScroll';
 import { RecoilRoot } from 'recoil';
+import Home from './pages/Home';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <RecoilRoot>
-    <RouterProvider router={router} />,
+    <RouterProvider router={router} />
   </RecoilRoot>,
 );
