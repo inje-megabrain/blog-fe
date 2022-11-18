@@ -1,0 +1,102 @@
+{
+  "carddata": [
+    {
+      "id": 0,
+      "title": "TRENDING Design & React Meetup",
+      "making": "made in brown monkey",
+      "location": "Aug 17, 6:30PM @ Seattle, WA",
+      "description": "Designers react to JavaScript. Join us in this meetup where designers gather to share newbie React knowledge."
+    },
+    {
+      "id": 1,
+      "title": "TRENDING Design & React Meetup",
+      "making": "made in brown monkey",
+      "location": "Aug 16, 7:30PM @ Seattle, WA",
+      "description": "Designers react to JavaScript. Join us in this meetup where designers gather to share newbie React knowledge."
+    },
+    {
+      "id": 2,
+      "title": "TRENDING Design & React Meetup",
+      "making": "made in brown monkey",
+      "location": "Aug 18, 8:30PM @ Seattle, WA",
+      "description": "Designers react to JavaScript. Join us in this meetup where designers gather to share newbie React knowledge."
+    },
+    {
+      "id": 3,
+      "title": "TRENDING Design & React Meetup",
+      "making": "made in brown monkey",
+      "location": "Aug 20, 1:30PM @ Seattle, WA",
+      "description": "Designers react to JavaScript. Join us in this meetup where designers gather to share newbie React knowledge."
+    },
+    {
+      "id": 4,
+      "title": "TRENDING Design & React Meetup",
+      "making": "made in brown monkey",
+      "location": "Aug 12, 3:30PM @ Seattle, WA",
+      "description": "Designers react to JavaScript. Join us in this meetup where designers gather to share newbie React knowledge."
+    },
+    {
+      "id": 5,
+      "title": "TRENDING Design & React Meetup",
+      "making": "made in brown monkey",
+      "location": "Aug 11, 4:30PM @ Seattle, WA",
+      "description": "Designers react to JavaScript. Join us in this meetup where designers gather to share newbie React knowledge."
+    },
+    {
+      "id": 6,
+      "title": "TRENDING Design & React Meetup",
+      "making": "made in brown monkey",
+      "location": "Aug 14, 2:30PM @ Seattle, WA",
+      "description": "Designers react to JavaScript. Join us in this meetup where designers gather to share newbie React knowledge."
+    },
+    {
+      "id": 7,
+      "title": "LATEST Design & React Meetup",
+      "making": "made in brown monkey",
+      "location": "Aug 14, 2:30PM @ Seattle, WA",
+      "description": "Designers react to JavaScript. Join us in this meetup where designers gather to share newbie React knowledge."
+    },
+    {
+      "id": 8,
+      "title": "LATEST Design & React Meetup",
+      "making": "made in brown monkey",
+      "location": "Aug 14, 2:30PM @ Seattle, WA",
+      "description": "Designers react to JavaScript. Join us in this meetup where designers gather to share newbie React knowledge."
+    },
+    {
+      "id": 9,
+      "title": "LATEST Design & React Meetup",
+      "making": "made in brown monkey",
+      "location": "Aug 14, 2:30PM @ Seattle, WA",
+      "description": "Designers react to JavaScript. Join us in this meetup where designers gather to share newbie React knowledge."
+    },
+    {
+      "id": 10,
+      "title": "LATEST Design & React Meetup",
+      "making": "made in brown monkey",
+      "location": "Aug 14, 2:30PM @ Seattle, WA",
+      "description": "Designers react to JavaScript. Join us in this meetup where designers gather to share newbie React knowledge."
+    },
+    {
+      "id": 11,
+      "title": "LATEST Design & React Meetup",
+      "making": "made in brown monkey",
+      "location": "Aug 14, 2:30PM @ Seattle, WA",
+      "description": "Designers react to JavaScript. Join us in this meetup where designers gather to share newbie React knowledge."
+    },
+    {
+      "id": 12,
+      "title": "LATEST Design & React Meetup",
+      "making": "made in brown monkey",
+      "location": "Aug 14, 2:30PM @ Seattle, WA",
+      "description": "Designers react to JavaScript. Join us in this meetup where designers gather to share newbie React knowledge."
+    },
+    {
+      "id": 13,
+      "title": "LATEST Design & React Meetup",
+      "making": "made in brown monkey",
+      "location": "Aug 14, 2:30PM @ Seattle, WA",
+      "description": "Designers react to JavaScript. Join us in this meetup where designers gather to share newbie React knowledge."
+    }
+  ]
+}

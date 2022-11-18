@@ -8,6 +8,7 @@ import TextEditor from './pages/TextEditor';
 import InfiniteScroll from './pages/InfiniteScroll';
 import ProfileEdit from './components/ProfileEdit/ProfileEdit';
 import { RecoilRoot } from 'recoil';
+import Home from './pages/Home';
 
 const router = createBrowserRouter([
   {
