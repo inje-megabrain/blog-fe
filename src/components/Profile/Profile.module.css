@@ -1,0 +1,72 @@
+/*Profile Styles*/
+.profileStyle {
+  position: sticky;
+}
+
+.titleStyle {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 10px;
+}
+
+.introduce {
+  padding: 10px;
+}
+
+.modify {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  font-size: medium;
+  text-decoration: underline 0px;
+}
+
+.btnStyle {
+  width: fit-content;
+  height: fit-content;
+}
+
+.img {
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  background-color: yellow;
+}
+
+.imgStyle {
+  width: 150px;
+  height: 150px;
+  margin: auto;
+}
+
+.boxStyle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  background-color: white;
+  border: 0px solid #000000;
+  box-shadow: 20;
+  border-radius: 40px;
+  padding: 15px 30px;
+}
+
+.btn {
+  height: 30px;
+  margin-bottom: 0.5;
+  font-size: 13px;
+}
+
+.bottomLeftStyle {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-right: 3px solid #000;
+}
+
+.bottomRightStyle {
+  display: flex;
+  justify-content: space-around;
+}

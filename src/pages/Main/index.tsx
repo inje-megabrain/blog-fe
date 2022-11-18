@@ -14,6 +14,9 @@ const Root = () => {
             <li>
               <a href={`infinite`}>무한 스크롤 들어가기</a>
             </li>
+            <li>
+              <a href={`profile`}>프로필(사이드바) 들어가기</a>
+            </li>
           </ul>
         </nav>
       </div>
