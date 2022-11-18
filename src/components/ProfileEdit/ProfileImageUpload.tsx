@@ -1,8 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { Button } from '@mui/material';
 
-const ProfileImageUpload = (props: any) => {
-  const [imageUrl, setImageUrl] = useState('');
+type Props = {
+  setImgUrl: (url: string) => void;
+  imgUrl: string;
+};
+
+const ProfileImageUpload = ({ setImgUrl, imgUrl }: Props) => {
+  //const [imageUrl, setImageUrl] = useState('');
   const imgRef = useRef<any>();
 
   const onChangeImage = () => {
@@ -13,7 +18,7 @@ const ProfileImageUpload = (props: any) => {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       if (typeof reader.result === 'string') {
-        setImageUrl(reader.result);
+        setImgUrl(reader.result);
         console.log('이미지 주소 : ', reader.result);
       }
     };
@@ -28,10 +33,7 @@ const ProfileImageUpload = (props: any) => {
       <div
         style={{ width: '150px', height: '150px', backgroundColor: 'yellow' }}
       >
-        <img
-          style={{ width: '150px' }}
-          src={imageUrl ? imageUrl : 'No Image'}
-        />
+        <img style={{ width: '150px' }} src={imgUrl ? imgUrl : 'No Image'} />
       </div>
       <input
         type="file"

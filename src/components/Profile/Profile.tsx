@@ -8,6 +8,10 @@ import Diversity3Icon from '@mui/icons-material/Diversity3';
 import CreateIcon from '@mui/icons-material/Create';
 import { Link } from 'react-router-dom';
 import useModal from '../../hooks/useModal';
+import { useRecoilState } from 'recoil';
+import { inputState } from '../../states/profileEditState';
+import useProfileHandle from '../../hooks/useProfileHandle';
+
 // import { IconButton } from "@mui/material";
 // import GitHubIcon from "@mui/icons-material/GitHub";
 // import InstagramIcon from "@mui/icons-material/Instagram";
@@ -16,6 +20,7 @@ import useModal from '../../hooks/useModal';
 
 function Profile() {
   const { isOpen, toggle } = useModal();
+  const { profile, handle } = useProfileHandle();
 
   const [follow, setFollow]: any = useState('FOLLOW');
   const toggleFollow = () =>
@@ -85,10 +90,7 @@ function Profile() {
             {/* Contents_Introduce */}
             <Grid item xs={7.5} className={ProfileStyle.introduce}>
               <Typography id="transition-modal-description" sx={{ mt: 1 }}>
-                수정은 모달 내에서 OR 새로운 창에서
-                <br />
-                이미지, 뱃지, 팔로워 관리?, 소개글 수정
-                <br />다 하려면 새로운 창 필요하다고 생각
+                {profile?.info}
               </Typography>
             </Grid>
             {/* Edit Link */}

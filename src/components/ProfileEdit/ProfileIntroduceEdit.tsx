@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { inputState } from '../../states/profileEditState';
+
+import { IProfile } from '../../types/profile';
+import useProfileHandle from '../../hooks/useProfileHandle';
 
 const Styles = styled.div`
   .inputContents {
@@ -20,20 +21,27 @@ const Styles = styled.div`
   }
 `;
 
-const ProfileIntroduceEdit = (props: any) => {
+type Props = {
+  setInfo: (info: string) => void;
+  info: string;
+};
+
+const ProfileIntroduceEdit = ({ setInfo, info }: Props) => {
   const [onModify, setOnModify] = useState(false);
-  const [contents, setContents] = useRecoilState(inputState);
+  //const { profile, handle } = useProfileHandle();
 
   // 일단 버튼은 toggle 넣어뒀는데, 나중에는 수정 완료 버튼 용도로 바꿀 예정
   const toggleModify = () => {
     setOnModify((prev: boolean) => (prev === true ? false : true));
   };
 
-  const onChangeContents = () => {};
+  const onChangeContents = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInfo(e.target.value);
+  };
 
   const complete = () => {
-    //setContents(contents);
-    console.log('내용 : ' + contents);
+    //API 전송
+    console.log('내용 : ' + info);
   };
 
   return (
@@ -43,7 +51,8 @@ const ProfileIntroduceEdit = (props: any) => {
         type="text"
         disabled={onModify ? false : true}
         placeholder="Introduce Yourself!"
-        value={contents}
+        value={info}
+        onChange={onChangeContents}
       ></input>
       <Button onClick={toggleModify}>수정하기</Button>
       <Button onClick={complete}>수정완료</Button>

@@ -1753,7 +1753,11 @@ __metadata:
     react-dom: ^18.2.0
     react-router-dom: ^6.4.2
     recoil: ^0.7.6
+<<<<<<< HEAD
     styled-components: ^5.3.6
+=======
+    source-map-support: ^0.5.21
+>>>>>>> 4c70c43537f2759e426f0a7cc1b7b933af2e49e7
     typescript: ^4.6.4
     vite: ^3.1.0
     vite-tsconfig-paths: ^3.5.1
@@ -5187,7 +5191,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-support@npm:^0.5.16":
+"source-map-support@npm:^0.5.16, source-map-support@npm:^0.5.21":
   version: 0.5.21
   resolution: "source-map-support@npm:0.5.21"
   dependencies:
