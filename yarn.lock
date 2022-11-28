@@ -1857,6 +1857,7 @@ __metadata:
     "@babel/node": ^7.19.1
     "@babel/plugin-proposal-decorators": ^7.19.6
     "@babel/plugin-proposal-private-property-in-object": ^7.20.5
+    "@babel/plugin-syntax-decorators": ^7.19.0
     "@emotion/react": ^11.10.4
     "@emotion/styled": ^11.10.4
     "@mui/icons-material": ^5.10.9
