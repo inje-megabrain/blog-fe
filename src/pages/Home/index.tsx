@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import { TextField } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Blogcard from '../../components/Blogcard/Blogcard';
+// import Blogcard from '../../components/Blogcard/Blogcard';
 import { css } from '@emotion/react';
 
 const Home = () => {
@@ -91,7 +91,7 @@ const Home = () => {
           />
         </Stack>
       </div>
-      <Blogcard cardnumber={number} />
+      {/* <Blogcard cardnumber={number} /> */}
     </>
   );
 };
